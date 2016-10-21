@@ -13,10 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import graphic.controler.ViewerControler;
-import graphic.model.ModelViewer;
+import graphic.model.PictureListModel;
+import graphic.model.Picture;
 
-public class ImagesList extends AbstractView implements ActionListener {
-	private final ModelViewer model;
+public class ImgListView extends AbstractView implements ActionListener {
+	private final PictureListModel model;
 	private final GridBagLayout gbt = new GridBagLayout();
 	private final GridBagConstraints gbc = new GridBagConstraints();
 	private final JPanel content = new JPanel();
@@ -26,7 +27,7 @@ public class ImagesList extends AbstractView implements ActionListener {
 	private final JButton displayButt;
 	private String selectedItem;
 
-	public ImagesList(ModelViewer model) {
+	public ImgListView(PictureListModel model) {
 		super(model);
 		this.model = model;
 		this.label = new Label("Liste des images :");

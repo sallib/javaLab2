@@ -5,18 +5,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observer;
 
-import graphic.view.Picture;
-
-public class ModelViewer extends AbstractModel {
+public class PictureListModel extends AbstractModel {
 	private final ArrayList<Picture> fileList = new ArrayList<>();
 	private final File directory;
 
-	private ModelViewer(File directory) {
+	private PictureListModel(File directory) {
 		this.directory = directory;
 	}
 
-	public static ModelViewer createViewer(File directory) {
-		ModelViewer viewer = new ModelViewer(directory);
+	public static PictureListModel createViewer(File directory) {
+		PictureListModel viewer = new PictureListModel(directory);
 		viewer.loadPictures();
 		return viewer;
 	}

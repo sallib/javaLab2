@@ -11,15 +11,15 @@ import javax.swing.JPanel;
 
 import graphic.controler.ViewerControler;
 import graphic.model.AbstractModel;
-import graphic.model.ModelViewer;
+import graphic.model.PictureListModel;
 
 public class Window extends JFrame implements java.util.Observer {
 	// Instanciation d'un objet JPanel
 	private JPanel container = new JPanel();
-	protected ModelViewer model;
+	protected PictureListModel model;
 	
 
-	public Window(ModelViewer model) {
+	public Window(PictureListModel model) {
 		this.setTitle("My awesome Canadian pictures");
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
@@ -33,16 +33,16 @@ public class Window extends JFrame implements java.util.Observer {
 		this.setContentPane(container);
 		// On définit le layout à utiliser sur le content pane
 		this.setLayout(new BorderLayout());
-		initImageViewer();
-		initMenu();
-
 		this.model = model;
-		this.setVisible(true);
+		initImageViewer();
 		initListImages();
+		initMenu();
+		this.setVisible(true);
+		
 	}
 
 	private void initListImages() {
-		ImagesList il = new ImagesList(this.model);
+		ImgListView il = new ImgListView(this.model);
 		JPanel content = il.getImageList();
 		this.getContentPane().add(content, BorderLayout.EAST);
 		this.setVisible(true);
@@ -52,14 +52,15 @@ public class Window extends JFrame implements java.util.Observer {
 		Menu menu = new Menu();
 		JMenuBar menuBar = menu.getMenu();
 		this.getContentPane().add(menuBar, BorderLayout.NORTH);
+		this.setVisible(true);
 	}
 
 
 	private void initImageViewer() {
-		ImageView iv = new ImageView(this.model);
+		CurrentImgView iv = new CurrentImgView(this.model);
 		JPanel content = iv.getImageView();
 		this.getContentPane().add(content, BorderLayout.CENTER);
-
+		this.setVisible(true);
 	}
 
 	@Override

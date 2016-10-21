@@ -1,4 +1,6 @@
-package graphic.view;
+package graphic.model;
+
+
 
 public class Picture {
 

@@ -2,25 +2,24 @@ package graphic.controler;
 
 import java.util.ArrayList;
 
-import graphic.model.ModelViewer;
+import graphic.model.PictureListModel;
+import graphic.model.Picture;
 import graphic.view.AbstractView;
-import graphic.view.ImageView;
-import graphic.view.ImagesList;
-import graphic.view.Picture;
+import graphic.view.ImgListView;
 
 public class ViewerControler {
 
-	private final ModelViewer model;
+	private final PictureListModel model;
 	private final AbstractView view;
 
-	public ViewerControler(AbstractView view, ModelViewer model) {
+	public ViewerControler(AbstractView view, PictureListModel model) {
 		this.model = model;
 		this.view = view;
 	}
 
 	public void control() {
 		ArrayList<Picture> fileList = model.getFileList();
-		ImagesList il = (ImagesList) this.view;
+		ImgListView il = (ImgListView) this.view;
 		int index = il.getSelectedItemIndex();
 
 		// TODO : something wrong

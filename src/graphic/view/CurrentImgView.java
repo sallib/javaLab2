@@ -2,24 +2,22 @@ package graphic.view;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Label;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import graphic.model.AbstractModel;
+import graphic.model.Picture;
 
-public class ImageView extends AbstractView {
+public class CurrentImgView extends AbstractView {
 
-	private Picture picture;
 	private JLabel pict; 
 	
 
-	public ImageView(AbstractModel model) {
+	public CurrentImgView(AbstractModel model) {
 		super(model);
 	}
 	
