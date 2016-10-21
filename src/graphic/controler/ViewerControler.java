@@ -22,19 +22,19 @@ public class ViewerControler {
 		ArrayList<Picture> fileList = model.getFileList();
 		ImagesList il = (ImagesList) this.view;
 		int index = il.getSelectedItemIndex();
-		
-		//TODO : something wrong
-		ImageView iv = (ImageView) this.view;
-		iv.setPicture(fileList.get(index));
+
+		// TODO : something wrong
+		//ImageView iv = (ImageView) this.view;
+		//iv.setPicture(fileList.get(index));
 		System.out.println("Changer affichage " + fileList.get(index).getPath());
 
 	}
 
 	public void displaySelectedItem(String selectedItem) {
-		ImageView iv = (ImageView) this.view;
-	
+		// ImageView iv = (ImageView) this.view;
+		System.out.println("Afficher l'image " + selectedItem);
 		control();
-		
+
 	}
 
 }
