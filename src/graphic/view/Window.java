@@ -42,7 +42,7 @@ public class Window extends JFrame implements java.util.Observer {
 	}
 
 	private void initListImages() {
-		ImgListView il = new ImgListView(this.model);
+		ImgListView il = new ImgListView(this.model); // a passer en parametre de classe ?
 		JPanel content = il.getImageList();
 		this.getContentPane().add(content, BorderLayout.EAST);
 		this.setVisible(true);
@@ -57,7 +57,7 @@ public class Window extends JFrame implements java.util.Observer {
 
 
 	private void initImageViewer() {
-		CurrentImgView iv = new CurrentImgView(this.model);
+		CurrentImgView iv = new CurrentImgView(this.model); // a passer en parametre de classe ?
 		JPanel content = iv.getImageView();
 		this.getContentPane().add(content, BorderLayout.CENTER);
 		this.setVisible(true);
