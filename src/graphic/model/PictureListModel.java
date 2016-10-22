@@ -3,32 +3,52 @@ package graphic.model;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Observer;
 
 public class PictureListModel extends AbstractModel {
-	private final ArrayList<Picture> fileList = new ArrayList<>();
-	private final File directory;
+	private final ArrayList<Picture> fileList;
 
-	private PictureListModel(File directory) {
-		this.directory = directory;
+	/**
+	 * Constructeur par defaut.
+	 */
+	private PictureListModel() {
+		this.fileList = new ArrayList<>();
 	}
 
+	/**
+	 * createur de l'objet PictureListModel qui gère les objets Pictures sous forme d'ArrayList.
+	 * @param directory le dossier par défaut contenant des images.
+	 * @return	l'objet PictureListModel
+	 */
 	public static PictureListModel createViewer(File directory) {
-		PictureListModel viewer = new PictureListModel(directory);
-		viewer.loadPictures();
+		PictureListModel viewer = new PictureListModel();
+		viewer.loadPictures(directory);
 		return viewer;
 	}
 
-	private void loadPictures() {
-		Arrays.asList(this.directory.list()).forEach(f -> {
+	/**
+	 * Methode pour remplir la liste des images stockees dans le repertoire par defaut.
+	 * @param directory repertoire par defaut.
+	 */
+	private void loadPictures(File directory) {
+		Objects.requireNonNull(directory);
+		Arrays.asList(directory.list()).forEach(f -> {
 			fileList.add(new Picture(f));
 		});
 	}
 
+	/**
+	 * Getter pour la liste d'image.
+	 * @return
+	 */
 	public ArrayList<Picture> getFileList() {
 		return this.fileList;
 	}
 
+	/**
+	 * methode inutilisee? a supprimer avec AbstractModel et Observable?
+	 */
 	@Override
 	public void addObserver(Observer obs) {
 		// TODO Auto-generated method stub
