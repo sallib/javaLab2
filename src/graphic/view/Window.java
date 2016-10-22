@@ -16,10 +16,13 @@ import graphic.model.PictureListModel;
 public class Window extends JFrame implements java.util.Observer {
 	// Instanciation d'un objet JPanel
 	private JPanel container = new JPanel();
-	protected PictureListModel model;
+	private ImgListView il;
+	private CurrentImgView iv;
 	
 
 	public Window(PictureListModel model) {
+		this.il = new ImgListView(model);
+		this.iv = new CurrentImgView(model);
 		this.setTitle("My awesome Canadian pictures");
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
@@ -33,7 +36,6 @@ public class Window extends JFrame implements java.util.Observer {
 		this.setContentPane(container);
 		// On définit le layout à utiliser sur le content pane
 		this.setLayout(new BorderLayout());
-		this.model = model;
 		initImageViewer();
 		initListImages();
 		initMenu();
@@ -42,7 +44,6 @@ public class Window extends JFrame implements java.util.Observer {
 	}
 
 	private void initListImages() {
-		ImgListView il = new ImgListView(this.model); // a passer en parametre de classe ?
 		JPanel content = il.getImageList();
 		this.getContentPane().add(content, BorderLayout.EAST);
 		this.setVisible(true);
@@ -57,7 +58,6 @@ public class Window extends JFrame implements java.util.Observer {
 
 
 	private void initImageViewer() {
-		CurrentImgView iv = new CurrentImgView(this.model); // a passer en parametre de classe ?
 		JPanel content = iv.getImageView();
 		this.getContentPane().add(content, BorderLayout.CENTER);
 		this.setVisible(true);
