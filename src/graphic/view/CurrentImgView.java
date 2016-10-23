@@ -1,10 +1,14 @@
 package graphic.view;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Label;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -21,17 +25,15 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	private JLabel pict;
 	private final JPanel content;
 	private JPanel imgPanel;
+	private JButton previousButt;
+	private JButton nextButt;
 
-	private CurrentImgView(PictureListModel model) {
+	public CurrentImgView(PictureListModel model) {
 		super(model);
 		this.content = new JPanel();
 		this.imgPanel = new JPanel();
 	}
 
-	public static CurrentImgView create(PictureListModel model) {
-		CurrentImgView CIV = new CurrentImgView(model);
-		return CIV;
-	}
 
 	/**
 	 * Methode d'affichage de l'image active centrale
@@ -59,7 +61,9 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 * @return
 	 */
 	private JPanel getCenter() {
-		pict = new JLabel(new ImageIcon("pict/" + getCurrentPicture()));
+		ImageIcon img = new ImageIcon("pict/" + getCurrentPicture());
+		img.setImage(scale(img.getImage(), 400, 300));
+		pict = new JLabel(img);
 		imgPanel.setLayout(new BorderLayout());
 		imgPanel.add(pict, BorderLayout.CENTER);
 		return imgPanel;
@@ -76,11 +80,12 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 		gridLayout.setColumns(2);
 		foot.setLayout(gridLayout);
 
-		JButton previousButt = new JButton("Précédent");
+		previousButt = new JButton("Précédent");
 		previousButt.setActionCommand("Previous");// Nom de commande générique
-		JButton nextButt = new JButton("Suivant");
+		nextButt = new JButton("Suivant");
 		nextButt.setActionCommand("Next"); // Nom de commande générique
 		previousButt.addActionListener(this);
+		previousButt.setEnabled(false);
 		nextButt.addActionListener(this);
 		foot.add(previousButt);
 		foot.add(nextButt);
@@ -113,25 +118,31 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 		int z = super.getCurrentIndex();
 		ArrayList<Picture> list = getModel().getFileList();
 		String actionCmd = action.getActionCommand();
+		
+		//Désactive les boutons suivant / Précédent lorsque nécessaire
+		if (z - 1 <= 0) {
+			previousButt.setEnabled(false);
+		} else if ((z + 1) >= (list.size() - 1)) {
+			nextButt.setEnabled(false);
+		}
+		
+		//Switch selon le bouton activé par l'utilisateur
 		switch (actionCmd) {
 		case "Previous":
 			if (z > 0) {
-				super.displaySelectedItem(list.get(z -1).getPath());
-			}else{
-				//début de la liste : on repart à la fin
-				super.displaySelectedItem(list.get(list.size()-1).getPath()); 
+				super.displaySelectedItem(list.get(z - 1).getPath());
+				nextButt.setEnabled(true); // Réactive le bouton next
 			}
 			break;
 		case "Next":
-			if (z < list.size()-1) {
+			if (z < list.size() - 1) {
 				super.displaySelectedItem(list.get(z + 1).getPath());
-			}else{
-				//fin de la liste : on repart du début
-				super.displaySelectedItem(list.get(0).getPath()); 
+				previousButt.setEnabled(true); // Réactive le bouton previous
 			}
 			break;
 		case "Modify":
 			System.out.println("Modifier les infos de l'image...");
+			InfosView iv = new InfosView();
 		default: // Never happen
 			break;
 		}
@@ -142,7 +153,34 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 */
 	public void refresh() {
 		System.out.println("Refresh picture");
-		pict.setIcon(new ImageIcon("pict/" + getCurrentPicture()));
+		ImageIcon img = new ImageIcon("pict/" + getCurrentPicture());
+		img.setImage(scale(img.getImage(), 400, 300));
+		pict.setIcon(img);
+	}
+
+	/**
+	 * Redimensionne une image.
+	 * 
+	 * @param source
+	 *            Image à redimensionner.
+	 * @param width
+	 *            Largeur de l'image cible.
+	 * @param height
+	 *            Hauteur de l'image cible.
+	 * @return Image redimensionnée.
+	 */
+	public static Image scale(Image source, int width, int height) {
+		/* On crée une nouvelle image aux bonnes dimensions. */
+		BufferedImage buf = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+		/* On dessine sur le Graphics de l'image bufferisée. */
+		Graphics2D g = buf.createGraphics();
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g.drawImage(source, 0, 0, width, height, null);
+		g.dispose();
+
+		/* On retourne l'image bufferisée, qui est une image. */
+		return buf;
 	}
 
 }

@@ -19,8 +19,8 @@ public class ViewerControler {
 
 	private ViewerControler(PictureListModel model) {
 		this.model = model;
-		this.CIV = CurrentImgView.create(model);
-		this.ILV = ImgListView.create(model);
+		this.CIV = new CurrentImgView(model);
+		this.ILV = new ImgListView(model);
 	}
 	
 	/**

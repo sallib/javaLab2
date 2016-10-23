@@ -29,7 +29,7 @@ public class ImgListView extends AbstractView implements ActionListener {
 	 *            liste des images préalablement instanciee pour construire la
 	 *            vue initiale.
 	 */
-	private ImgListView(PictureListModel model) {
+	public ImgListView(PictureListModel model) {
 		super(model);
 		this.gbt = new GridBagLayout();
 		this.content = new JPanel();
@@ -37,15 +37,20 @@ public class ImgListView extends AbstractView implements ActionListener {
 		this.label = new Label("Liste des images :");
 		this.list = new List();
 		this.displayButt = new JButton("Afficher");
+		init();
 	}
 
+	public void init(){
+		this.setImageList();
+		this.displayButt.addActionListener(this);
+		this.content.setLayout(this.gbt);
+	}
+	/*
 	public static ImgListView create(PictureListModel model) {
 		ImgListView ILV = new ImgListView(model);
-		ILV.setImageList();
-		ILV.displayButt.addActionListener(ILV);
-		ILV.content.setLayout(ILV.gbt);
+		
 		return ILV;
-	}
+	}*/
 
 	/**
 	 * Getter pour l'element actif de la liste.
