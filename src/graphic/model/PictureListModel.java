@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Observer;
 
-import graphic.controler.ViewerControler;
-
 public class PictureListModel extends AbstractModel {
 	private final ArrayList<Picture> fileList;
 

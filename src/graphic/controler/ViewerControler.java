@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import javax.swing.JPanel;
 
-import graphic.model.Picture;
 import graphic.model.PictureListModel;
 import graphic.view.CurrentImgView;
 import graphic.view.ImgListView;

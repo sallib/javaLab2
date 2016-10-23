@@ -6,7 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -44,6 +43,9 @@ public class InfosView extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Initialise la fenetre avec les composants
+	 */
 	private void init() {
 		//Récupération du titre et de la description de l'image courante
 		int z = vc.getCurrentIndex();

@@ -5,7 +5,6 @@ import java.util.Objects;
 import javax.swing.JPanel;
 
 import graphic.controler.ViewerControler;
-import graphic.model.Picture;
 import graphic.model.PictureListModel;
 
 public abstract class AbstractView extends JPanel {
