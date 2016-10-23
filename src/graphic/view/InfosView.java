@@ -23,15 +23,13 @@ public class InfosView extends JFrame implements ActionListener {
 	private JPanel container = new JPanel();
 	private final GridBagLayout gbt;
 	private final GridBagConstraints gbc;
-	private final PictureListModel model;
-	private final ViewerControler vc;
 	private JTextField titleEdit;
 	private JTextArea descEdit;
-	private Picture currentPict;
-	
-	public InfosView(PictureListModel model, ViewerControler vc) {
-		this.model = model;
-		this.vc = vc;
+	private CurrentImgView CIV;
+
+	public InfosView(CurrentImgView CIV) {
+		this.CIV = CIV;
+
 		this.setTitle("Modifier Informations");
 		this.setSize(400, 300);
 		this.setLocationRelativeTo(null);
@@ -47,9 +45,8 @@ public class InfosView extends JFrame implements ActionListener {
 	 * Initialise la fenetre avec les composants
 	 */
 	private void init() {
-		//Récupération du titre et de la description de l'image courante
-		int z = vc.getCurrentIndex();
-		currentPict = model.getFileList().get(z);
+		// Récupération du titre et de la description de l'image courante
+		Picture currentPict = CIV.getCIVCurrentPict();// model.getFileList().get(z);
 		String title = currentPict.getTitle();
 		String description = currentPict.getDescription();
 		
@@ -100,10 +97,12 @@ public class InfosView extends JFrame implements ActionListener {
 		String action = e.getActionCommand();
 		switch (action) {
 		case "Valider":
-			//Modification du titre et description de l'image courante
+			// Modification du titre et description de l'image courante
+			Picture currentPict = CIV.getCIVCurrentPict();
 			currentPict.setTitle(titleEdit.getText());
 			currentPict.setDescription(descEdit.getText());
-			//Quitter
+			CIV.updateHeaderInfos();
+			// Quitter
 			this.setVisible(false);
 			this.dispose();
 			break;

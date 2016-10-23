@@ -27,13 +27,14 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	private JPanel imgPanel;
 	private JButton previousButt;
 	private JButton nextButt;
+	private Label title;
+	private Label desc;
 
 	public CurrentImgView(PictureListModel model) {
 		super(model);
 		this.content = new JPanel();
 		this.imgPanel = new JPanel();
 	}
-
 
 	/**
 	 * Methode d'affichage de l'image active centrale
@@ -101,32 +102,44 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	private JPanel getHeadPanel() { // TODO listener à implanter
 		JPanel head = new JPanel();
 		head.setLayout(new GridLayout(3, 3));
-
-		Label title = new Label("Titre : ");
-		Label desc = new Label("Description : ");
+		
+		Label titleLabel = new Label("Titre : ");
+		Label descLabel = new Label("Description : ");
+		title = new Label();
+		desc = new Label();
 		JButton modifyButt = new JButton("Modifier");
 		modifyButt.setActionCommand("Modify"); // Nom de commande générique
 		modifyButt.addActionListener(this);
+		head.add(titleLabel);
 		head.add(title);
+		head.add(descLabel);
 		head.add(desc);
 		head.add(modifyButt);
+		updateHeaderInfos();
 		return head;
 	}
 
+	public void updateHeaderInfos(){
+		int index = super.getCurrentIndex();
+		Picture currentPict = getModel().getFileList().get(index);
+		title.setText(currentPict.getTitle());
+		desc.setText(currentPict.getDescription());
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent action) {
 		int z = super.getCurrentIndex();
 		ArrayList<Picture> list = getModel().getFileList();
 		String actionCmd = action.getActionCommand();
-		
-		//Désactive les boutons suivant / Précédent lorsque nécessaire
+
+		// Désactive les boutons suivant / Précédent lorsque nécessaire
 		if (z - 1 <= 0) {
 			previousButt.setEnabled(false);
 		} else if ((z + 1) >= (list.size() - 1)) {
 			nextButt.setEnabled(false);
 		}
-		
-		//Switch selon le bouton activé par l'utilisateur
+
+		// Switch selon le bouton activé par l'utilisateur
 		switch (actionCmd) {
 		case "Previous":
 			if (z > 0) {
@@ -142,12 +155,19 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 			break;
 		case "Modify":
 			System.out.println("Modifier les infos de l'image...");
-			InfosView iv = new InfosView(getModel(), getControler());
+			int index = super.getCurrentIndex();
+			InfosView iv = new InfosView(this);
 		default: // Never happen
 			break;
 		}
+		updateHeaderInfos();
 	}
 
+	
+	public Picture getCIVCurrentPict(){
+		int index = super.getCurrentIndex();
+		return getModel().getFileList().get(index);
+	}
 	/**
 	 * Methode pour actualiser la vue de l'image.
 	 */
