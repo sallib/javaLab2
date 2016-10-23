@@ -2,9 +2,7 @@ package graphic.main;
 
 import java.io.File;
 
-import graphic.controler.ViewerControler;
 import graphic.model.PictureListModel;
-import graphic.view.AbstractView;
 import graphic.view.Window;
 
 public class Main {

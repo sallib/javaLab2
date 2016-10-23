@@ -7,6 +7,7 @@ import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import graphic.controler.ViewerControler;
 import graphic.model.PictureListModel;
 

@@ -126,6 +126,7 @@ public class ImgListView extends AbstractView implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		super.displaySelectedItem(list.getSelectedItem());
 	}
 

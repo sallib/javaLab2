@@ -11,7 +11,7 @@ public abstract class AbstractModel implements Observable { // UNUSED
 	public void addObserver(java.util.Observer obs) {
 		this.listObserver.add(obs);
 	}
-	public ArrayList<String> getFileList;
+	public ArrayList<Picture> getFileList;
 	
 	
 

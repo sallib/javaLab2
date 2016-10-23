@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.swing.JPanel;
 
+import graphic.model.Picture;
 import graphic.model.PictureListModel;
 import graphic.view.CurrentImgView;
 import graphic.view.ImgListView;
@@ -22,13 +23,14 @@ public class ViewerControler {
 		this.CIV = new CurrentImgView(model);
 		this.ILV = new ImgListView(model);
 	}
-	
+
 	/**
 	 * factoryMethod fini.
+	 * 
 	 * @param model
 	 * @return
 	 */
-	public static ViewerControler create(PictureListModel model){
+	public static ViewerControler create(PictureListModel model) {
 		Objects.requireNonNull(model);
 		ViewerControler vc = new ViewerControler(model);
 		vc.setLinkInAbstractView();
@@ -38,37 +40,35 @@ public class ViewerControler {
 		vc.CIV.setImageView();
 		return vc;
 	}
-	
-	public PictureListModel getModel(){
+
+	public PictureListModel getModel() {
 		return model;
 	}
-	
-	private void setLinkInAbstractView(){
+
+	private void setLinkInAbstractView() {
 		CIV.setViewerController(this);
 		ILV.setViewerController(this);
 	}
-	
-	public JPanel getImageList(PictureListModel model){
+
+	public JPanel getImageList(PictureListModel model) {
 		return ILV.getImgList();
 	}
-	
-	public JPanel getImageView(){
+
+	public JPanel getImageView() {
 		return CIV.getImageView();
 	}
 
-	
-	public void changeCurrentImg(String path){
-		System.out.println("Change Current Img");
-		selectedItem = path;
+	public void changeCurrentImg(String item) {
+		selectedItem = item;
 		CIV.refresh();
 		ILV.refresh();
 	}
-	
-	public String getCurrentPicture(){
+
+	public String getCurrentPicture() {
 		return selectedItem;
 	}
-	
-	public int getCurrentIndex(){
+
+	public int getCurrentIndex() {
 		return fileListPath.indexOf(selectedItem);
 	}
 

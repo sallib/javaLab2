@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Observer;
 
+import graphic.controler.ViewerControler;
+
 public class PictureListModel extends AbstractModel {
 	private final ArrayList<Picture> fileList;
 
@@ -17,9 +19,12 @@ public class PictureListModel extends AbstractModel {
 	}
 
 	/**
-	 * createur de l'objet PictureListModel qui gère les objets Pictures sous forme d'ArrayList.
-	 * @param directory le dossier par défaut contenant des images.
-	 * @return	l'objet PictureListModel
+	 * createur de l'objet PictureListModel qui gère les objets Pictures sous
+	 * forme d'ArrayList.
+	 * 
+	 * @param directory
+	 *            le dossier par défaut contenant des images.
+	 * @return l'objet PictureListModel
 	 */
 	public static PictureListModel createViewer(File directory) {
 		PictureListModel viewer = new PictureListModel();
@@ -28,8 +33,11 @@ public class PictureListModel extends AbstractModel {
 	}
 
 	/**
-	 * Methode pour remplir la liste des images stockees dans le repertoire par defaut.
-	 * @param directory repertoire par defaut.
+	 * Methode pour remplir la liste des images stockees dans le repertoire par
+	 * defaut.
+	 * 
+	 * @param directory
+	 *            repertoire par defaut.
 	 */
 	private void loadPictures(File directory) {
 		Objects.requireNonNull(directory);
@@ -40,19 +48,21 @@ public class PictureListModel extends AbstractModel {
 
 	/**
 	 * Getter pour la liste d'image.
+	 * 
 	 * @return
 	 */
 	public ArrayList<Picture> getFileList() {
 		return this.fileList;
 	}
-	
-	public ArrayList<String> getAllPaths(){
+
+	public ArrayList<String> getAllPaths() {
 		ArrayList<String> allPaths = new ArrayList<>();
-		for(Picture p:fileList){
+		for (Picture p : fileList) {
 			allPaths.add(p.getPath());
 		}
 		return allPaths;
 	}
+
 
 	/**
 	 * methode inutilisee? a supprimer avec AbstractModel et Observable?

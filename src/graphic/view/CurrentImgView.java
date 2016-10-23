@@ -142,7 +142,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 			break;
 		case "Modify":
 			System.out.println("Modifier les infos de l'image...");
-			InfosView iv = new InfosView();
+			InfosView iv = new InfosView(getModel(), getControler());
 		default: // Never happen
 			break;
 		}

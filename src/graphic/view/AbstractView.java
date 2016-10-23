@@ -1,11 +1,11 @@
 package graphic.view;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import javax.swing.JPanel;
 
 import graphic.controler.ViewerControler;
+import graphic.model.Picture;
 import graphic.model.PictureListModel;
 
 public abstract class AbstractView extends JPanel {
@@ -37,8 +37,11 @@ public abstract class AbstractView extends JPanel {
 		this.vc = vc;
 	}
 
-	public void displaySelectedItem(String path) {
-		vc.changeCurrentImg(path);
+	public void displaySelectedItem(String item) {
+		vc.changeCurrentImg(item);
 	}
 
+	public ViewerControler getControler(){
+		return vc;
+	}
 }
