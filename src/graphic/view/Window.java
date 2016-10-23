@@ -1,9 +1,7 @@
 package graphic.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Insets;
-import java.util.Observable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -52,9 +50,6 @@ public class Window extends JFrame  {
 		this.setVisible(true);
 	}
 
-	@Override
-	public Insets getInsets() {
-		return new Insets(10, 10, 10, 10);
-	}
+	
 
 }

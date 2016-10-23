@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Observer;
 
 public class PictureListModel extends AbstractModel {
 	private final ArrayList<Picture> fileList;

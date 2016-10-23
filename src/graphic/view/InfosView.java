@@ -14,9 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import graphic.controler.ViewerControler;
 import graphic.model.Picture;
-import graphic.model.PictureListModel;
 
 public class InfosView extends JFrame implements ActionListener {
 
