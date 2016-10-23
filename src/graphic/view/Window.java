@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import graphic.controler.ViewerControler;
 import graphic.model.PictureListModel;
 
-public class Window extends JFrame implements java.util.Observer {
+public class Window extends JFrame  {
 	// Instanciation d'un objet JPanel
 	private JPanel container = new JPanel();
 	private ViewerControler vc;
@@ -24,10 +24,6 @@ public class Window extends JFrame implements java.util.Observer {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		model.addObserver(this);
-		
-		// Définition de sa couleur de fond
-		container.setBackground(Color.ORANGE);
 		// On prévient notre JFrame que notre JPanel sera son content pane
 		this.setContentPane(container);
 		// On définit le layout à utiliser sur le content pane
@@ -61,9 +57,4 @@ public class Window extends JFrame implements java.util.Observer {
 		return new Insets(10, 10, 10, 10);
 	}
 
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
-	}
 }

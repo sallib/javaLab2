@@ -62,12 +62,4 @@ public class PictureListModel extends AbstractModel {
 	}
 
 
-	/**
-	 * methode inutilisee? a supprimer avec AbstractModel et Observable?
-	 */
-	@Override
-	public void addObserver(Observer obs) {
-		// TODO Auto-generated method stub
-
-	}
 }
