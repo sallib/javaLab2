@@ -19,8 +19,8 @@ public class ViewerControler {
 
 	private ViewerControler(PictureListModel model) {
 		this.model = model;
-		this.CIV = CurrentImgView.create();
-		this.ILV = ImgListView.create();
+		this.CIV = CurrentImgView.create(model);
+		this.ILV = ImgListView.create(model);
 	}
 	
 	/**
@@ -48,7 +48,7 @@ public class ViewerControler {
 		ILV.setViewerController(this);
 	}
 	
-	public JPanel getImageList(){
+	public JPanel getImageList(PictureListModel model){
 		return ILV.getImgList();
 	}
 	
@@ -56,33 +56,15 @@ public class ViewerControler {
 		return CIV.getImageView();
 	}
 
-	public void control() {
-		/*ArrayList<Picture> fileList = model.getFileList();
-		int index = this.view.getSelectedItemIndex();*/
-
-		// TODO : something wrong
-		//ImageView iv = (ImageView) this.view;
-		//iv.setPicture(fileList.get(index));
-		//System.out.println("Changer affichage " + fileList.get(index).getPath());
-		System.out.println("Changer affichage " + selectedItem);
-
-	}
-
-	public void displaySelectedItem(String selectedItem) {
-		// ImageView iv = (ImageView) this.view;
-		System.out.println("Afficher l'image " + selectedItem); // TODO quand appelé rafraichit les 2 classes.
-		control();
-
-	}
 	
 	public void changeCurrentImg(String path){
+		System.out.println("Change Current Img");
 		selectedItem = path;
 		CIV.refresh();
 		ILV.refresh();
 	}
 	
 	public String getCurrentPicture(){
-		System.out.println("getCurrentPicture:"+selectedItem);
 		return selectedItem;
 	}
 	

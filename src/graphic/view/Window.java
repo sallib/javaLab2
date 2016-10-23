@@ -14,8 +14,9 @@ public class Window extends JFrame implements java.util.Observer {
 	// Instanciation d'un objet JPanel
 	private JPanel container = new JPanel();
 	private ViewerControler vc;
-
+	private final PictureListModel model;
 	public Window(PictureListModel model) {
+		this.model = model;
 		this.vc = ViewerControler.create(model);
 		this.setTitle("My awesome Canadian pictures");
 		this.setSize(800, 600);
@@ -38,7 +39,7 @@ public class Window extends JFrame implements java.util.Observer {
 	}
 
 	private void initListImages() {
-		this.getContentPane().add(vc.getImageList(), BorderLayout.EAST);
+		this.getContentPane().add(vc.getImageList(model), BorderLayout.EAST);
 		this.setVisible(true);
 	}
 

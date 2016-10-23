@@ -8,41 +8,37 @@ import javax.swing.JPanel;
 import graphic.controler.ViewerControler;
 import graphic.model.PictureListModel;
 
-
 public abstract class AbstractView extends JPanel {
-	
+
 	private ViewerControler vc;
-	
-	public AbstractView() {
+	private final PictureListModel model;
+
+	public AbstractView(PictureListModel model) {
 		vc = null;
+		this.model = model;
 	}
-	
-/*	public ArrayList<String> getFileList(){ // TODO à traiter
-		return fileList;
-	}*/
-	public abstract int getSelectedItemIndex();// TODO check that.
-	
-	public PictureListModel getModel(){
-		return vc.getModel();
+
+	// public abstract int getSelectedItemIndex();// TODO check that.
+
+	public PictureListModel getModel() {
+		return model; //vc.getModel();
 	}
-	
-	public String getCurrentPicture(){
+
+	public String getCurrentPicture() {
 		return vc.getCurrentPicture();
 	}
-	
-	public int getCurrentIndex(){
+
+	public int getCurrentIndex() {
 		return vc.getCurrentIndex();
 	}
-	
-	public void setViewerController(ViewerControler vc){
+
+	public void setViewerController(ViewerControler vc) {
 		Objects.requireNonNull(vc);
 		this.vc = vc;
 	}
-	
-	public void displaySelectedItem(String path){
+
+	public void displaySelectedItem(String path) {
 		vc.changeCurrentImg(path);
 	}
-	
-	
-	
+
 }
