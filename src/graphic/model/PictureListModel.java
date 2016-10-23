@@ -45,6 +45,14 @@ public class PictureListModel extends AbstractModel {
 	public ArrayList<Picture> getFileList() {
 		return this.fileList;
 	}
+	
+	public ArrayList<String> getAllPaths(){
+		ArrayList<String> allPaths = new ArrayList<>();
+		for(Picture p:fileList){
+			allPaths.add(p.getPath());
+		}
+		return allPaths;
+	}
 
 	/**
 	 * methode inutilisee? a supprimer avec AbstractModel et Observable?

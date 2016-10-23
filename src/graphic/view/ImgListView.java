@@ -8,6 +8,7 @@ import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -17,27 +18,33 @@ import graphic.model.PictureListModel;
 import graphic.model.Picture;
 
 public class ImgListView extends AbstractView implements ActionListener {
-	private final PictureListModel model;
-	private final GridBagLayout gbt = new GridBagLayout();
-	private final GridBagConstraints gbc = new GridBagConstraints();
-	private final JPanel content = new JPanel();
+	private final GridBagLayout gbt;
+	private final GridBagConstraints gbc;
+	private final JPanel content;
 	private final Label label;
 	private final List list;
 	private final JButton displayButt;
-	private String selectedItem;
 
 	/**
 	 * Constructeur par defaut appelee par Window
 	 * @param model liste des images préalablement instanciee pour construire la vue initiale.
 	 */
-	public ImgListView(PictureListModel model) {
-		super(model);
-		this.model = model;
+	private ImgListView() {
+		super();
+		this.gbt = new GridBagLayout();
+		this.content = new JPanel();
+		this.gbc = new GridBagConstraints();
 		this.label = new Label("Liste des images :");
 		this.list = new List();
 		this.displayButt = new JButton("Afficher");
-		displayButt.addActionListener(this);
-		content.setLayout(gbt);
+	}
+	
+	public static ImgListView create(){
+		ImgListView ILV = new ImgListView();
+		ILV.setImageList();
+		ILV.displayButt.addActionListener(ILV);
+		ILV.content.setLayout(ILV.gbt);
+		return ILV;
 	}
 
 	/**
@@ -52,36 +59,42 @@ public class ImgListView extends AbstractView implements ActionListener {
 	 * Constructeur visuel de la liste.
 	 * @return l'objet Jpanel permettant de manipuler la liste.
 	 */
-	public JPanel getImageList() {
-		fillFileList();
-		selectFirstItem();
-
+	public void setImageList() {
 		JPanel empty = new JPanel();
 		addComponent(label, 0, 0, 1, 1);
 		addComponent(list, 2, 0, 1, 4);
 		addComponent(empty, 8, 0, 1, 2);
 		addComponent(displayButt, 10, 0, 1, 1);
+	}
+	
+	public JPanel getImgList(){
 		return content;
 	}
 
 	/**
 	 * Methode interne pour ajouter les paths de chaque image dans la liste texte affichee.
 	 */
-	private void fillFileList() {
-		model.getFileList().forEach(item -> {
+	public void fillFileList() { // TODO responsabilité de cette classe ou de ViewerControler?
+		getModel().getFileList().forEach(item -> {
 			list.add(item.getPath());
 		});
+		selectFirstItem();
+	}
+	
+	public void setViewerController(ViewerControler vc){
+		super.setViewerController(vc);
 	}
 
 	/**
 	 * Methode interne de selection par defaut du premier element de la liste pour le mettre actif. 
 	 * Utilisee a l'instanciation.
 	 */
-	private void selectFirstItem() {
+	private String selectFirstItem() {
 		if (list.getItemCount() > 0) {
 			list.select(0);
-			selectedItem = list.getItem(0);
+			return list.getItem(0);
 		}
+		return "no item";
 	}
 
 
@@ -107,9 +120,11 @@ public class ImgListView extends AbstractView implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		selectedItem = list.getSelectedItem();
-		ViewerControler controler = new ViewerControler(this, model);
-		controler.displaySelectedItem(selectedItem);
+		super.displaySelectedItem(list.getSelectedItem());
+	}
+	
+	public void refresh(){
+		list.select(super.getCurrentIndex());
 	}
 
 }

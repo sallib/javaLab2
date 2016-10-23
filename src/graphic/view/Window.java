@@ -6,23 +6,17 @@ import java.awt.Insets;
 import java.util.Observable;
 
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-
 import graphic.controler.ViewerControler;
-import graphic.model.AbstractModel;
 import graphic.model.PictureListModel;
 
 public class Window extends JFrame implements java.util.Observer {
 	// Instanciation d'un objet JPanel
 	private JPanel container = new JPanel();
-	private ImgListView il;
-	private CurrentImgView iv;
-	
+	private ViewerControler vc;
 
 	public Window(PictureListModel model) {
-		this.il = new ImgListView(model);
-		this.iv = new CurrentImgView(model);
+		this.vc = ViewerControler.create(model);
 		this.setTitle("My awesome Canadian pictures");
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
@@ -44,22 +38,19 @@ public class Window extends JFrame implements java.util.Observer {
 	}
 
 	private void initListImages() {
-		JPanel content = il.getImageList();
-		this.getContentPane().add(content, BorderLayout.EAST);
+		this.getContentPane().add(vc.getImageList(), BorderLayout.EAST);
 		this.setVisible(true);
 	}
 
 	private void initMenu() {
 		Menu menu = new Menu();
-		JMenuBar menuBar = menu.getMenu();
-		this.getContentPane().add(menuBar, BorderLayout.NORTH);
+		this.getContentPane().add(menu.getMenu(), BorderLayout.NORTH);
 		this.setVisible(true);
 	}
 
 
 	private void initImageViewer() {
-		JPanel content = iv.getImageView();
-		this.getContentPane().add(content, BorderLayout.CENTER);
+		this.getContentPane().add(vc.getImageView(), BorderLayout.CENTER);
 		this.setVisible(true);
 	}
 
