@@ -11,10 +11,12 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
 
 import graphic.controler.ViewerControler;
 import graphic.model.Picture;
@@ -82,8 +84,10 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 		foot.setLayout(gridLayout);
 
 		previousButt = new JButton("Précédent");
+		previousButt.setIcon(new ImageIcon("icon/back.png"));
 		previousButt.setActionCommand("Previous");// Nom de commande générique
 		nextButt = new JButton("Suivant");
+		nextButt.setIcon(new ImageIcon("icon/next.png"));
 		nextButt.setActionCommand("Next"); // Nom de commande générique
 		previousButt.addActionListener(this);
 		previousButt.setEnabled(false);
