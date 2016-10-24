@@ -13,8 +13,8 @@ public class Picture {
 
 	public Picture(String path) {
 		this.path = path;
-		this.title = "no title";
-		this.description = "no description";
+		this.title = path;
+		this.description = "pas de description";
 		
 	}
 
