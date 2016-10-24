@@ -17,7 +17,6 @@ public abstract class AbstractView extends JPanel {
 		this.model = model;
 	}
 
-	// public abstract int getSelectedItemIndex();// TODO check that.
 
 	public PictureListModel getModel() {
 		return model; //vc.getModel();
@@ -40,7 +39,5 @@ public abstract class AbstractView extends JPanel {
 		vc.changeCurrentImg(item);
 	}
 
-	public ViewerControler getControler(){
-		return vc;
-	}
+
 }

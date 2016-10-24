@@ -39,7 +39,7 @@ public class Window extends JFrame  {
 	}
 
 	private void initMenu() {
-		Menu menu = new Menu();
+		Menu menu = new Menu(model);
 		this.getContentPane().add(menu.getMenu(), BorderLayout.NORTH);
 		this.setVisible(true);
 	}
@@ -50,6 +50,9 @@ public class Window extends JFrame  {
 		this.setVisible(true);
 	}
 
-	
+	private void close(){
+		this.setVisible(false);
+		this.dispose();
+	}
 
 }

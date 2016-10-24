@@ -8,6 +8,7 @@ import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -41,6 +42,7 @@ public class ImgListView extends AbstractView implements ActionListener {
 	}
 
 	public void init(){
+		content.setBorder(BorderFactory.createEtchedBorder());
 		this.setImageList();
 		this.displayButt.addActionListener(this);
 		this.content.setLayout(this.gbt);

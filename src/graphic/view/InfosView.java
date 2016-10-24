@@ -47,7 +47,7 @@ public class InfosView extends JFrame implements ActionListener {
 		Picture currentPict = CIV.getCIVCurrentPict();// model.getFileList().get(z);
 		String title = currentPict.getTitle();
 		String description = currentPict.getDescription();
-		
+
 		JPanel empty = new JPanel();
 		JLabel titleLabel = new JLabel("Titre");
 		titleEdit = new JTextField(title, 20);
@@ -101,17 +101,19 @@ public class InfosView extends JFrame implements ActionListener {
 			currentPict.setDescription(descEdit.getText());
 			CIV.updateHeaderInfos();
 			// Quitter
-			this.setVisible(false);
-			this.dispose();
-			break;
+			close();
 		case "Cancel":
-			this.setVisible(false);
-			this.dispose();
+			close();
 			break;
 		default:
 			break;
 		}
 
+	}
+
+	private void close() {
+		this.setVisible(false);
+		this.dispose();
 	}
 
 	@Override

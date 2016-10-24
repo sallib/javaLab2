@@ -60,5 +60,7 @@ public class PictureListModel extends AbstractModel {
 		return allPaths;
 	}
 
-
+	public void addPicture(String path){
+		fileList.add(new Picture(path));
+	}
 }

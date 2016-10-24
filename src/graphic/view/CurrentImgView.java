@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -64,6 +65,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 * @return
 	 */
 	private JPanel getCenter() {
+		imgPanel.setBorder(BorderFactory.createEtchedBorder());
 		ImageIcon img = new ImageIcon("pict/" + getCurrentPicture());
 		img.setImage(scale(img.getImage(), 400, 300));
 		pict = new JLabel(img);
