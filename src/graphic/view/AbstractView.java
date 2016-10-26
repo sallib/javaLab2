@@ -15,7 +15,7 @@ public abstract class AbstractView extends JPanel {
 	private final List list;
 	
 	public AbstractView(PictureListModel model) {
-		vc = create;
+		vc = null;
 		this.model = model;
 		this.list = new List();
 	}
