@@ -58,7 +58,7 @@ public class Menu extends AbstractView implements ActionListener {
 			String newImg = chooser.getSelectedFile().getPath();
 			
 			System.out.println("You chose to open this file: " + newImg);
-			displaySelectedItem(newImg);
+		//	displaySelectedItem(newImg);
 			getModel().addPicture(newImg);
 		
 			// TODO : L'ajout ne se passe pas bien !!!

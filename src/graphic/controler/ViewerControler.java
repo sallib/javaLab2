@@ -21,6 +21,7 @@ public class ViewerControler {
 		this.model = model;
 		this.CIV = new CurrentImgView(model);
 		this.ILV = new ImgListView(model);
+		
 	}
 
 	/**
