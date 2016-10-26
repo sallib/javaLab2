@@ -11,11 +11,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import graphic.controler.ViewerControler;
 import graphic.model.PictureListModel;
 
 public class Menu extends AbstractView implements ActionListener {
 	private final Window window;
-
+	
 	public Menu(PictureListModel model, Window window) {
 		super(model);
 		this.window = window;
@@ -54,8 +55,12 @@ public class Menu extends AbstractView implements ActionListener {
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
-			getModel().addPicture(chooser.getSelectedFile().getPath());
+			String newImg = chooser.getSelectedFile().getPath();
+			
+			System.out.println("You chose to open this file: " + newImg);
+			//displaySelectedItem(newImg);
+			getModel().addPicture(newImg);
+		
 			// TODO : L'ajout ne se passe pas bien !!!
 		}
 	}

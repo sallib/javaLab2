@@ -66,7 +66,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 */
 	private JPanel getCenter() {
 		imgPanel.setBorder(BorderFactory.createEtchedBorder());
-		ImageIcon img = new ImageIcon("pict/" + getCurrentPicture());
+		ImageIcon img = new ImageIcon(getCurrentPicture());
 		img.setImage(scale(img.getImage(), 400, 300));
 		pict = new JLabel(img);
 		imgPanel.setLayout(new BorderLayout());
@@ -127,6 +127,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 
 	public void updateHeaderInfos(){
 		int index = super.getCurrentIndex();
+		System.out.println("index : " + index + "; size : " + getModel().getFileList().size());
 		Picture currentPict = getModel().getFileList().get(index);
 		title.setText(currentPict.getTitle());
 		desc.setText(currentPict.getDescription());
@@ -179,7 +180,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 */
 	public void refresh() {
 		System.out.println("Refresh picture");
-		ImageIcon img = new ImageIcon("pict/" + getCurrentPicture());
+		ImageIcon img = new ImageIcon(getCurrentPicture());
 		img.setImage(scale(img.getImage(), 400, 300));
 		pict.setIcon(img);
 	}

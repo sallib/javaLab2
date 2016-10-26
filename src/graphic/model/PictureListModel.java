@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class PictureListModel extends AbstractModel {
+public class PictureListModel {
 	private final ArrayList<Picture> fileList;
 
 	/**
@@ -39,16 +39,25 @@ public class PictureListModel extends AbstractModel {
 	private void loadPictures(File directory) {
 		Objects.requireNonNull(directory);
 		Arrays.asList(directory.list()).forEach(f -> {
-			fileList.add(new Picture(f));
+			fileList.add(new Picture(directory.getPath() + "/"+ f));
 		});
 	}
 
+	
+	//TODO : suppress
+	private void affiche(){
+		fileList.forEach( t  -> {
+			System.out.print(t.getTitle() + " ; ");
+		});
+		System.out.println("");
+	}
 	/**
 	 * Getter pour la liste d'image.
 	 * 
 	 * @return
 	 */
 	public ArrayList<Picture> getFileList() {
+		affiche(); //TODO suppress
 		return this.fileList;
 	}
 
@@ -60,7 +69,8 @@ public class PictureListModel extends AbstractModel {
 		return allPaths;
 	}
 
-	public void addPicture(String path){
+	public void addPicture(String path) {
+		
 		fileList.add(new Picture(path));
 	}
 }

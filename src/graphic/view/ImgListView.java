@@ -36,7 +36,7 @@ public class ImgListView extends AbstractView implements ActionListener {
 		this.content = new JPanel();
 		this.gbc = new GridBagConstraints();
 		this.label = new Label("Liste des images :");
-		this.list = new List();
+		this.list = getList();
 		this.displayButt = new JButton("Afficher");
 		init();
 	}
@@ -86,11 +86,12 @@ public class ImgListView extends AbstractView implements ActionListener {
 	 */
 	public void fillFileList() {
 		getModel().getFileList().forEach(item -> {
-			list.add(item.getPath());
+			String[] paths = item.getPath().split("/");
+			list.add(paths[paths.length-1]);
 		});
 		selectFirstItem();
 	}
-
+	
 	public void setViewerController(ViewerControler vc) {
 		super.setViewerController(vc);
 	}

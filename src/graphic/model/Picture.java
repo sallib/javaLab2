@@ -13,7 +13,7 @@ public class Picture {
 
 	public Picture(String path) {
 		this.path = path;
-		this.title = path;
+		this.title = path.split("/")[path.split("/").length-1];
 		this.description = "pas de description";
 		
 	}
