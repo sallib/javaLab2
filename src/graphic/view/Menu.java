@@ -14,9 +14,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import graphic.model.PictureListModel;
 
 public class Menu extends AbstractView implements ActionListener {
+	private final Window window;
 
-	public Menu(PictureListModel model) {
+	public Menu(PictureListModel model, Window window) {
 		super(model);
+		this.window = window;
 	}
 
 	public JMenuBar getMenu() {
@@ -29,10 +31,10 @@ public class Menu extends AbstractView implements ActionListener {
 
 		info_more.addActionListener(this);
 		info_more.setActionCommand("info");
-		
+
 		file_add.addActionListener(this);
 		file_add.setActionCommand("file");
-		
+
 		file_quit.addActionListener(this);
 		file_quit.setActionCommand("quit");
 
@@ -45,19 +47,19 @@ public class Menu extends AbstractView implements ActionListener {
 		return menuBar;
 	}
 
-	private void chooseFile(){
-	    JFileChooser chooser = new JFileChooser(new File("."));
-	    FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG; JPEG; GIF; PNG", "jpeg", "jpg", "png", "gif");
-	    chooser.setFileFilter(filter);
-	    int returnVal = chooser.showOpenDialog(null);
-	    if(returnVal == JFileChooser.APPROVE_OPTION) {
-	       System.out.println("You chose to open this file: " +
-	            chooser.getSelectedFile().getName());
-	       getModel().addPicture(chooser.getSelectedFile().getPath());
-	       //TODO : L'ajout ne se passe pas bien !!!
-	    }
+	private void chooseFile() {
+		JFileChooser chooser = new JFileChooser(new File("."));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG; JPEG; GIF; PNG", "jpeg", "jpg", "png",
+				"gif");
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+			getModel().addPicture(chooser.getSelectedFile().getPath());
+			// TODO : L'ajout ne se passe pas bien !!!
+		}
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
@@ -67,11 +69,11 @@ public class Menu extends AbstractView implements ActionListener {
 			String infos = "Interface développé par Jonathan Garnier et Sandy Allibert\nUniversité Laval\nOctobre 2016";
 			jop.showMessageDialog(null, infos, "Information", JOptionPane.INFORMATION_MESSAGE);
 			break;
-		case "file" : 
+		case "file":
 			chooseFile();
 			break;
-		case "quit" : 
-			//TODO
+		case "quit":
+			window.close();
 			break;
 		}
 
