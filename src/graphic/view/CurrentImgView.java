@@ -1,6 +1,7 @@
 package graphic.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -12,12 +13,10 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
 
 import graphic.controler.ViewerControler;
 import graphic.model.Picture;
@@ -106,9 +105,10 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 * @return
 	 */
 	private JPanel getHeadPanel() { // TODO listener à implanter
-		JPanel head = new JPanel();
-		head.setLayout(new GridLayout(3, 3));
-		
+		JPanel head = new JPanel(new GridLayout(3, 3));
+		JPanel headBorderLayout = new JPanel(new BorderLayout());
+		JPanel east = new JPanel(new BorderLayout());
+		headBorderLayout.setBorder(BorderFactory.createEtchedBorder());
 		Label titleLabel = new Label("Titre : ");
 		Label descLabel = new Label("Description : ");
 		title = new Label();
@@ -120,11 +120,20 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 		head.add(title);
 		head.add(descLabel);
 		head.add(desc);
-		head.add(modifyButt);
+		
+		headBorderLayout.add(head, BorderLayout.CENTER);
+		east.add(new JPanel(), BorderLayout.NORTH);
+		east.add(modifyButt, BorderLayout.CENTER);
+		east.add(new JPanel(), BorderLayout.SOUTH);
+		headBorderLayout.add(east, BorderLayout.EAST);
+		
 		updateHeaderInfos();
-		return head;
+		return headBorderLayout;
 	}
 
+	/**
+	 * Mise à jour des informations sur l'image affiché
+	 */
 	public void updateHeaderInfos(){
 		int index = super.getCurrentIndex();
 		System.out.println("index : " + index + "; size : " + getModel().getFileList().size());
@@ -136,13 +145,13 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent action) {
 		int z = super.getCurrentIndex();
-		ArrayList<Picture> list = getModel().getFileList();
+		ArrayList<Picture> listPict = getModel().getFileList();
 		String actionCmd = action.getActionCommand();
 
 		// Désactive les boutons suivant / Précédent lorsque nécessaire
 		if (z - 1 <= 0) {
 			previousButt.setEnabled(false);
-		} else if ((z + 1) >= (list.size() - 1)) {
+		} else if ((z + 1) >= (listPict.size() - 1)) {
 			nextButt.setEnabled(false);
 		}
 
@@ -150,13 +159,13 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 		switch (actionCmd) {
 		case "Previous":
 			if (z > 0) {
-				super.displaySelectedItem(list.get(z - 1).getPath());
+				super.displaySelectedItem(listPict.get(z - 1).getPath());
 				nextButt.setEnabled(true); // Réactive le bouton next
 			}
 			break;
 		case "Next":
-			if (z < list.size() - 1) {
-				super.displaySelectedItem(list.get(z + 1).getPath());
+			if (z < listPict.size() - 1) {
+				super.displaySelectedItem(listPict.get(z + 1).getPath());
 				previousButt.setEnabled(true); // Réactive le bouton previous
 			}
 			break;
@@ -179,7 +188,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 * Methode pour actualiser la vue de l'image.
 	 */
 	public void refresh() {
-		System.out.println("Refresh picture");
+		System.out.println("Refresh picture " + getCurrentPicture()); //TODO : suppress
 		ImageIcon img = new ImageIcon(getCurrentPicture());
 		img.setImage(scale(img.getImage(), 400, 300));
 		pict.setIcon(img);

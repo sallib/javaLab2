@@ -60,7 +60,6 @@ public class ViewerControler {
 
 	public void changeCurrentImg(String item) {
 		selectedItem = item;
-		System.out.println("selected : " + selectedItem);
 		CIV.refresh();
 		ILV.refresh();
 	}

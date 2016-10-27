@@ -7,12 +7,14 @@ import java.awt.Label;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import graphic.controler.ViewerControler;
+import graphic.model.Picture;
 import graphic.model.PictureListModel;
 
 public class ImgListView extends AbstractView implements ActionListener {
@@ -125,12 +127,13 @@ public class ImgListView extends AbstractView implements ActionListener {
 	}
 
 	/**
-	 * Redefinition de l'action a realiser suite a un clic dans la liste.
+	 * Action lorsque l'utilisateur clique sur le bouton Afficher
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		super.displaySelectedItem(list.getSelectedItem());
+		int z = list.getSelectedIndex();
+		ArrayList<Picture> listPict = getModel().getFileList();
+		super.displaySelectedItem(listPict.get(z).getPath());
 	}
 
 	public void refresh() {
