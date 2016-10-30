@@ -11,38 +11,38 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import graphic.controler.ViewerControler;
 import graphic.model.PictureListModel;
 
 public class Menu extends AbstractView implements ActionListener {
 	private final Window window;
+	private final JMenuBar menuBar;
+	private final JMenu file;
+	private final JMenu infos;
+	private final JMenuItem file_add;
+	private final JMenuItem file_quit;
+	private final JMenuItem info_more;
 	
 	public Menu(PictureListModel model, Window window) {
 		super(model);
 		this.window = window;
+		menuBar = new JMenuBar();
+		file = new JMenu("Fichier");
+		infos = new JMenu("Infos");
+		file_add = new JMenuItem("Ajouter");
+		file_quit = new JMenuItem("Quitter");
+		info_more = new JMenuItem("A propos");
 	}
 
 	public JMenuBar getMenu() {
-		JMenuBar menuBar = new JMenuBar();
-		JMenu file = new JMenu("Fichier");
-		JMenu infos = new JMenu("Infos");
-		JMenuItem file_add = new JMenuItem("Ajouter");
-		JMenuItem file_quit = new JMenuItem("Quitter");
-		JMenuItem info_more = new JMenuItem("A propos");
-
 		info_more.addActionListener(this);
 		info_more.setActionCommand("info");
-
 		file_add.addActionListener(this);
 		file_add.setActionCommand("file");
-
 		file_quit.addActionListener(this);
 		file_quit.setActionCommand("quit");
-
 		file.add(file_add);
 		file.add(file_quit);
 		infos.add(info_more);
-
 		menuBar.add(file);
 		menuBar.add(infos);
 		return menuBar;
@@ -72,9 +72,8 @@ public class Menu extends AbstractView implements ActionListener {
 
 		switch (e.getActionCommand()) {
 		case "info":
-			JOptionPane jop = new JOptionPane();
 			String infos = "Interface développé par Jonathan Garnier et Sandy Allibert\nUniversité Laval\nOctobre 2016";
-			jop.showMessageDialog(null, infos, "Information", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, infos, "Information", JOptionPane.INFORMATION_MESSAGE);
 			break;
 		case "file":
 			chooseFile();
