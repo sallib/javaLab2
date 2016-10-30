@@ -148,26 +148,15 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 		ArrayList<Picture> listPict = getModel().getFileList();
 		String actionCmd = action.getActionCommand();
 
-		// Désactive les boutons suivant / Précédent lorsque nécessaire
-		if (z - 1 <= 0) {
-			previousButt.setEnabled(false);
-		} else if ((z + 1) >= (listPict.size() - 1)) {
-			nextButt.setEnabled(false);
-		}
-
 		// Switch selon le bouton activé par l'utilisateur
 		switch (actionCmd) {
 		case "Previous":
-			if (z > 0) {
 				super.displaySelectedItem(listPict.get(z - 1).getPath());
 				nextButt.setEnabled(true); // Réactive le bouton next
-			}
 			break;
 		case "Next":
-			if (z < listPict.size() - 1) {
 				super.displaySelectedItem(listPict.get(z + 1).getPath());
 				previousButt.setEnabled(true); // Réactive le bouton previous
-			}
 			break;
 		case "Modify":
 			System.out.println("Modifier les infos de l'image...");
@@ -192,6 +181,18 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 		ImageIcon img = new ImageIcon(getCurrentPicture());
 		img.setImage(scale(img.getImage(), 400, 300));
 		pict.setIcon(img);
+		int z = super.getCurrentIndex();
+		System.out.println("z = "+ z);
+		// Désactive les boutons suivant / Précédent lorsque nécessaire. à déplacer dans le refresh
+		if (z == 0) {
+			previousButt.setEnabled(false);
+		} else if (z  == (getModel().getFileList().size() - 1)) {
+			nextButt.setEnabled(false);
+			System.out.println("next disabled");
+		}else{
+			previousButt.setEnabled(true);
+			nextButt.setEnabled(true);
+		}
 	}
 
 	/**
