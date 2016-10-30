@@ -13,7 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import graphic.model.PictureListModel;
 
-public class Menu extends AbstractView implements ActionListener {
+public class Menu implements ActionListener {
 	private final Window window;
 	private final JMenuBar menuBar;
 	private final JMenu file;
@@ -22,8 +22,7 @@ public class Menu extends AbstractView implements ActionListener {
 	private final JMenuItem file_quit;
 	private final JMenuItem info_more;
 	
-	public Menu(PictureListModel model, Window window) {
-		super(model);
+	public Menu(Window window) {
 		this.window = window;
 		menuBar = new JMenuBar();
 		file = new JMenu("Fichier");
@@ -61,7 +60,7 @@ public class Menu extends AbstractView implements ActionListener {
 			//TODO : Il faut ajouter le nouvel élément a la List de l'interface
 			// Et sélextionner l'item pour pouvoir afficher les informations titre / desc
 		//	displaySelectedItem(newImg);  -> fait tout planter car VC est null à ce moment la. s
-			getModel().addPicture(newImg);
+			//getModel().addPicture(newImg);
 		
 			// TODO : L'ajout ne se passe pas bien !!!
 		}

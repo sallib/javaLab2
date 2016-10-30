@@ -32,8 +32,8 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	private Label title;
 	private Label desc;
 
-	public CurrentImgView(PictureListModel model) {
-		super(model);
+	public CurrentImgView() {
+		super();
 		this.content = new JPanel();
 		this.imgPanel = new JPanel();
 	}

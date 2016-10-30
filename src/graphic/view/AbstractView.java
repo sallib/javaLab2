@@ -11,18 +11,16 @@ import graphic.model.PictureListModel;
 public abstract class AbstractView extends JPanel {
 
 	private ViewerControler vc;
-	private final PictureListModel model;
 	private final List list;
 	
-	public AbstractView(PictureListModel model) {
+	public AbstractView() {
 		vc = null;
-		this.model = model;
 		this.list = new List();
 	}
 
 
 	public PictureListModel getModel() {
-		return model; //vc.getModel();
+		return vc.getModel();
 	}
 
 	public String getCurrentPicture() {

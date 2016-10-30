@@ -13,9 +13,8 @@ public class Window extends JFrame  {
 	// Instanciation d'un objet JPanel
 	private JPanel container = new JPanel();
 	private ViewerControler vc;
-	private final PictureListModel model;
+	
 	public Window(PictureListModel model) {
-		this.model = model;
 		this.vc = ViewerControler.create(model);
 		this.setTitle("My awesome Canadian pictures");
 		this.setSize(800, 600);
@@ -34,12 +33,12 @@ public class Window extends JFrame  {
 	}
 
 	private void initListImages() {
-		this.getContentPane().add(vc.getImageList(model), BorderLayout.EAST);
+		this.getContentPane().add(vc.getImageList(), BorderLayout.EAST);
 		this.setVisible(true);
 	}
 
-	private void initMenu() {
-		Menu menu = new Menu(model, this);
+	private void initMenu() { // TODO remove de window => Application
+		Menu menu = new Menu(this);
 		this.getContentPane().add(menu.getMenu(), BorderLayout.NORTH);
 		this.setVisible(true);
 	}

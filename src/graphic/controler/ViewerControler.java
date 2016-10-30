@@ -19,8 +19,8 @@ public class ViewerControler {
 
 	private ViewerControler(PictureListModel model) {
 		this.model = model;
-		this.CIV = new CurrentImgView(model);
-		this.ILV = new ImgListView(model);
+		this.CIV = new CurrentImgView();
+		this.ILV = new ImgListView();
 		
 	}
 
@@ -50,7 +50,7 @@ public class ViewerControler {
 		ILV.setViewerController(this);
 	}
 
-	public JPanel getImageList(PictureListModel model) {
+	public JPanel getImageList() {
 		return ILV.getImgList();
 	}
 

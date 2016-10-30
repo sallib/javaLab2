@@ -32,8 +32,8 @@ public class ImgListView extends AbstractView implements ActionListener {
 	 *            liste des images préalablement instanciee pour construire la
 	 *            vue initiale.
 	 */
-	public ImgListView(PictureListModel model) {
-		super(model);
+	public ImgListView() {
+		super();
 		this.gbt = new GridBagLayout();
 		this.content = new JPanel();
 		this.gbc = new GridBagConstraints();
