@@ -146,6 +146,6 @@ class InfosView extends JFrame implements ActionListener {
 	private void close() {
 		System.out.println("close infosview");
 		this.setVisible(false);
-		//this.dispose();
+		this.dispose();
 	}
 }
