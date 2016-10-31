@@ -1,6 +1,6 @@
-package graphic.model;
+package model;
 
-
+import java.util.Objects;
 
 public class Picture {
 
@@ -8,10 +8,8 @@ public class Picture {
 	private String description;
 	private String path;
 
-	public Picture() {
-	}
-
 	public Picture(String path) {
+		Objects.requireNonNull(path);
 		this.path = path;
 		this.title = path.split("/")[path.split("/").length-1];
 		this.description = "pas de description";
@@ -27,6 +25,7 @@ public class Picture {
 	}
 
 	public void setTitle(String title) {
+		Objects.requireNonNull(title);
 		this.title = title;
 	}
 
@@ -35,6 +34,7 @@ public class Picture {
 	}
 
 	public void setDescription(String description) {
+		Objects.requireNonNull(description);
 		this.description = description;
 	}
 	

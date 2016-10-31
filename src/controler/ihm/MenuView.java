@@ -1,8 +1,9 @@
-package graphic.view;
+package controler.ihm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Objects;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -11,19 +12,18 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import graphic.model.PictureListModel;
-
-public class Menu implements ActionListener {
-	private final Window window;
+class MenuView implements ActionListener {
 	private final JMenuBar menuBar;
 	private final JMenu file;
 	private final JMenu infos;
 	private final JMenuItem file_add;
 	private final JMenuItem file_quit;
 	private final JMenuItem info_more;
+	private InterfaceMenuView imv;
 	
-	public Menu(Window window) {
-		this.window = window;
+	MenuView(InterfaceMenuView imv) {
+		Objects.requireNonNull(imv);
+		this.imv = imv;
 		menuBar = new JMenuBar();
 		file = new JMenu("Fichier");
 		infos = new JMenu("Infos");
@@ -31,8 +31,26 @@ public class Menu implements ActionListener {
 		file_quit = new JMenuItem("Quitter");
 		info_more = new JMenuItem("A propos");
 	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
 
-	public JMenuBar getMenu() {
+		switch (e.getActionCommand()) {
+		case "info":
+			String infos = "Interface développé par Jonathan Garnier et Sandy Allibert\nUniversité Laval\nOctobre 2016";
+			JOptionPane.showMessageDialog(null, infos, "Information", JOptionPane.INFORMATION_MESSAGE);
+			break;
+		case "file":
+			chooseFile();
+			break;
+		case "quit":
+			imv.closeWindow();
+			break;
+		}
+
+	}
+
+	JMenuBar getMenu() {
 		info_more.addActionListener(this);
 		info_more.setActionCommand("info");
 		file_add.addActionListener(this);
@@ -60,27 +78,7 @@ public class Menu implements ActionListener {
 			//TODO : Il faut ajouter le nouvel élément a la List de l'interface
 			// Et sélextionner l'item pour pouvoir afficher les informations titre / desc
 		//	displaySelectedItem(newImg);  -> fait tout planter car VC est null à ce moment la. s
-			//getModel().addPicture(newImg);
-		
-			// TODO : L'ajout ne se passe pas bien !!!
+			imv.addPicture(newImg);
 		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-		switch (e.getActionCommand()) {
-		case "info":
-			String infos = "Interface développé par Jonathan Garnier et Sandy Allibert\nUniversité Laval\nOctobre 2016";
-			JOptionPane.showMessageDialog(null, infos, "Information", JOptionPane.INFORMATION_MESSAGE);
-			break;
-		case "file":
-			chooseFile();
-			break;
-		case "quit":
-			window.close();
-			break;
-		}
-
 	}
 }

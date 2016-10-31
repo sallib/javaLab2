@@ -1,4 +1,4 @@
-package graphic.view;
+package controler.ihm;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,39 +15,71 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import graphic.model.Picture;
+import model.Picture;
 
-public class InfosView extends JFrame implements ActionListener {
+class InfosView extends JFrame implements ActionListener {
 
 	private JPanel container = new JPanel();
 	private final GridBagLayout gbt;
 	private final GridBagConstraints gbc;
 	private JTextField titleEdit;
 	private JTextArea descEdit;
-	private CurrentImgView CIV;
+	private Picture currentPicture;
+	private InterfaceInfoView iiv;
 
-	public InfosView(CurrentImgView CIV) {
-		this.CIV = CIV;
-
+	/**
+	 * \brief constructeur de la fenêtre infosView en attente d'être appelée. 
+	 * Tant qu'elle n'est pas appelé par la méthode init(Picture p), currentPicture reste null.
+	 * Par défaut n'est pas visible.
+	 */
+	InfosView(InterfaceInfoView iiv) {
+		this.iiv = iiv;
+		this.currentPicture = null;
 		this.setTitle("Modifier Informations");
 		this.setSize(400, 300);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.gbt = new GridBagLayout();
 		this.gbc = new GridBagConstraints();
-		init();
 		this.setContentPane(container);
-		this.setVisible(true);
+		this.setVisible(false);
 	}
 
+	@Override
+	public Insets getInsets() {
+		return new Insets(5, 5, 5, 5);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String action = e.getActionCommand();
+		switch (action) {
+		case "Valider":
+			// Modification du titre et description de l'image courante
+			currentPicture.setTitle(titleEdit.getText());
+			currentPicture.setDescription(descEdit.getText());
+			iiv.updateHeaderInfos();
+			// Quitter
+			close();
+		case "Cancel":
+			close();
+			break;
+		default:
+			break;
+		}
+
+	}
+	
 	/**
 	 * Initialise la fenetre avec les composants
 	 */
-	private void init() {
-		// Récupération du titre et de la description de l'image courante
-		Picture currentPict = CIV.getCIVCurrentPict();// model.getFileList().get(z);
-		String title = currentPict.getTitle();
-		String description = currentPict.getDescription();
+	 void init(Picture currentPicture) {
+		Objects.requireNonNull(currentPicture);
+		this.currentPicture = currentPicture;
+		this.setVisible(true);
+
+		String title = currentPicture.getTitle();
+		String description = currentPicture.getDescription();
 
 		JPanel empty = new JPanel();
 		JLabel titleLabel = new JLabel("Titre");
@@ -69,7 +102,6 @@ public class InfosView extends JFrame implements ActionListener {
 		addComponent(empty, 8, 3, 3, 2);
 		addComponent(valid, 12, 3, 1, 1);
 		addComponent(cancel, 12, 4, 1, 1);
-
 	}
 
 	/**
@@ -90,34 +122,8 @@ public class InfosView extends JFrame implements ActionListener {
 		container.add(c);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		String action = e.getActionCommand();
-		switch (action) {
-		case "Valider":
-			// Modification du titre et description de l'image courante
-			Picture currentPict = CIV.getCIVCurrentPict();
-			currentPict.setTitle(titleEdit.getText());
-			currentPict.setDescription(descEdit.getText());
-			CIV.updateHeaderInfos();
-			// Quitter
-			close();
-		case "Cancel":
-			close();
-			break;
-		default:
-			break;
-		}
-
-	}
-
 	private void close() {
 		this.setVisible(false);
 		this.dispose();
-	}
-
-	@Override
-	public Insets getInsets() {
-		return new Insets(5, 5, 5, 5);
 	}
 }

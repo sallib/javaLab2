@@ -1,7 +1,6 @@
-package graphic.view;
+package controler.ImagesVisualisation;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -10,7 +9,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -18,11 +17,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import graphic.controler.ViewerControler;
-import graphic.model.Picture;
-import graphic.model.PictureListModel;
+import model.Picture;
 
-public class CurrentImgView extends AbstractView implements ActionListener {
+class CurrentImgView implements ActionListener {
 
 	private JLabel pict;
 	private final JPanel content;
@@ -31,41 +28,98 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	private JButton nextButt;
 	private Label title;
 	private Label desc;
+	private InterfaceCIV iciv;
 
-	public CurrentImgView() {
-		super();
+	/**
+	 * Class constructor
+	 * @param iciv ViewerController reference for specific methods calls.
+	 */
+	CurrentImgView(InterfaceCIV iciv) {
+		Objects.requireNonNull(iciv);
+		this.iciv = iciv;
 		this.content = new JPanel();
 		this.imgPanel = new JPanel();
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent action) {
+		String actionCmd = action.getActionCommand();
+		switch (actionCmd) {
+		case "Previous":
+				iciv.setPreviousPicture();
+				nextButt.setEnabled(true); // Réactive le bouton next TODO à supprimer ?
+			break;
+		case "Next":
+			iciv.setNextPicture();
+				previousButt.setEnabled(true); // Réactive le bouton previous TODO à supprimer ?
+			break;
+		case "Modify":
+			iciv.openInfoView();
+		default: // Never happen
+			break;
+		}
 	}
 
 	/**
 	 * Methode d'affichage de l'image active centrale
-	 * 
+	 * @param Picture current image to print.
 	 * @return
 	 */
-	public void setImageView() {
+	void setDefaultImageView(Picture currentImg) {
 		content.setLayout(new BorderLayout());
 		content.add(getHeadPanel(), BorderLayout.NORTH);
-		content.add(getCenter(), BorderLayout.CENTER);
+		content.add(getCenter(currentImg), BorderLayout.CENTER);
 		content.add(getFootPanel(), BorderLayout.SOUTH);
 	}
 
-	public JPanel getImageView() {
+	/**
+	 * Getter for this JPanel.
+	 * @return
+	 */
+	JPanel getImageView() {
 		return content;
 	}
+	
+	/**
+	 * Mise à jour des informations sur l'image affichee.
+	 * @param String image's title updated.
+	 * @param String image's description updated.
+	 */
+	void setTextInfo(String title, String descr){
+		this.title.setText(title);
+		this.desc.setText(descr);
+	}
 
-	public void setViewerController(ViewerControler vc) {
-		super.setViewerController(vc);
+	/**
+	 * Methode pour actualiser la vue de l'image. Actualise aussi la disponibilité des boutons de navigation.
+	 * @param String	path of the current picture
+	 * @param int 		index of the current picture in the list.
+	 * @param int 		size of the picture's list.
+	 */
+	void refresh(String currentPicture,int index,int size) {
+		ImageIcon img = new ImageIcon(currentPicture);
+		img.setImage(scale(img.getImage(), 400, 300));
+		pict.setIcon(img);
+		if (index == 0) {
+			previousButt.setEnabled(false);
+			nextButt.setEnabled(true);
+		} else if (index  == size - 1) {
+			previousButt.setEnabled(true);
+			nextButt.setEnabled(false);
+		}else{
+			previousButt.setEnabled(true);
+			nextButt.setEnabled(true);
+		}
 	}
 
 	/**
 	 * initialisateur de l'image centrale.
-	 * 
+	 * @param Picture current picture to print.
 	 * @return
 	 */
-	private JPanel getCenter() {
+	private JPanel getCenter(Picture currentImg) {
 		imgPanel.setBorder(BorderFactory.createEtchedBorder());
-		ImageIcon img = new ImageIcon(getCurrentPicture());
+		ImageIcon img = new ImageIcon(currentImg.getPath());
 		img.setImage(scale(img.getImage(), 400, 300));
 		pict = new JLabel(img);
 		imgPanel.setLayout(new BorderLayout());
@@ -78,7 +132,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 * 
 	 * @return
 	 */
-	private JPanel getFootPanel() { // TODO ajouter les listener.
+	private JPanel getFootPanel() {
 		JPanel foot = new JPanel();
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.setColumns(2);
@@ -86,10 +140,10 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 
 		previousButt = new JButton("Précédent");
 		previousButt.setIcon(new ImageIcon("icon/back.png"));
-		previousButt.setActionCommand("Previous");// Nom de commande générique
+		previousButt.setActionCommand("Previous");
 		nextButt = new JButton("Suivant");
 		nextButt.setIcon(new ImageIcon("icon/next.png"));
-		nextButt.setActionCommand("Next"); // Nom de commande générique
+		nextButt.setActionCommand("Next");
 		previousButt.addActionListener(this);
 		previousButt.setEnabled(false);
 		nextButt.addActionListener(this);
@@ -102,7 +156,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 * initialisateur du bandeau de visualisation des infos image + bouton
 	 * modification
 	 * 
-	 * @return
+	 * @return 
 	 */
 	private JPanel getHeadPanel() { // TODO listener à implanter
 		JPanel head = new JPanel(new GridLayout(3, 3));
@@ -114,85 +168,18 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 		title = new Label();
 		desc = new Label();
 		JButton modifyButt = new JButton("Modifier");
-		modifyButt.setActionCommand("Modify"); // Nom de commande générique
+		modifyButt.setActionCommand("Modify");
 		modifyButt.addActionListener(this);
 		head.add(titleLabel);
 		head.add(title);
 		head.add(descLabel);
 		head.add(desc);
-		
 		headBorderLayout.add(head, BorderLayout.CENTER);
 		east.add(new JPanel(), BorderLayout.NORTH);
 		east.add(modifyButt, BorderLayout.CENTER);
 		east.add(new JPanel(), BorderLayout.SOUTH);
 		headBorderLayout.add(east, BorderLayout.EAST);
-		
-		updateHeaderInfos();
 		return headBorderLayout;
-	}
-
-	/**
-	 * Mise à jour des informations sur l'image affiché
-	 */
-	public void updateHeaderInfos(){
-		int index = super.getCurrentIndex();
-		System.out.println("index : " + index + "; size : " + getModel().getFileList().size());
-		Picture currentPict = getModel().getFileList().get(index);
-		title.setText(currentPict.getTitle());
-		desc.setText(currentPict.getDescription());
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent action) {
-		int z = super.getCurrentIndex();
-		ArrayList<Picture> listPict = getModel().getFileList();
-		String actionCmd = action.getActionCommand();
-
-		// Switch selon le bouton activé par l'utilisateur
-		switch (actionCmd) {
-		case "Previous":
-				super.displaySelectedItem(listPict.get(z - 1).getPath());
-				nextButt.setEnabled(true); // Réactive le bouton next
-			break;
-		case "Next":
-				super.displaySelectedItem(listPict.get(z + 1).getPath());
-				previousButt.setEnabled(true); // Réactive le bouton previous
-			break;
-		case "Modify":
-			System.out.println("Modifier les infos de l'image...");
-			int index = super.getCurrentIndex();
-			InfosView iv = new InfosView(this);
-		default: // Never happen
-			break;
-		}
-		updateHeaderInfos();
-	}
-
-	
-	public Picture getCIVCurrentPict(){
-		int index = super.getCurrentIndex();
-		return getModel().getFileList().get(index);
-	}
-	/**
-	 * Methode pour actualiser la vue de l'image.
-	 */
-	public void refresh() {
-		System.out.println("Refresh picture " + getCurrentPicture()); //TODO : suppress
-		ImageIcon img = new ImageIcon(getCurrentPicture());
-		img.setImage(scale(img.getImage(), 400, 300));
-		pict.setIcon(img);
-		int z = super.getCurrentIndex();
-		System.out.println("z = "+ z);
-		// Désactive les boutons suivant / Précédent lorsque nécessaire. à déplacer dans le refresh
-		if (z == 0) {
-			previousButt.setEnabled(false);
-		} else if (z  == (getModel().getFileList().size() - 1)) {
-			nextButt.setEnabled(false);
-			System.out.println("next disabled");
-		}else{
-			previousButt.setEnabled(true);
-			nextButt.setEnabled(true);
-		}
 	}
 
 	/**
@@ -206,7 +193,7 @@ public class CurrentImgView extends AbstractView implements ActionListener {
 	 *            Hauteur de l'image cible.
 	 * @return Image redimensionnée.
 	 */
-	public static Image scale(Image source, int width, int height) {
+	private static Image scale(Image source, int width, int height) {
 		/* On crée une nouvelle image aux bonnes dimensions. */
 		BufferedImage buf = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 

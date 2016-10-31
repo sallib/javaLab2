@@ -1,4 +1,4 @@
-package graphic.model;
+package model;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class PictureListModel {
 	 * @return l'objet PictureListModel
 	 */
 	public static PictureListModel createViewer(File directory) {
+		Objects.requireNonNull(directory);
 		PictureListModel viewer = new PictureListModel();
 		viewer.loadPictures(directory);
 		return viewer;
@@ -43,21 +44,12 @@ public class PictureListModel {
 		});
 	}
 
-	
-	//TODO : suppress
-	private void affiche(){
-		fileList.forEach( t  -> {
-			System.out.print(t.getTitle() + " ; ");
-		});
-		System.out.println("");
-	}
 	/**
 	 * Getter pour la liste d'image.
 	 * 
 	 * @return
 	 */
 	public ArrayList<Picture> getFileList() {
-		affiche(); //TODO suppress
 		return this.fileList;
 	}
 
@@ -70,7 +62,6 @@ public class PictureListModel {
 	}
 
 	public void addPicture(String path) {
-		
 		fileList.add(new Picture(path));
 	}
 }
