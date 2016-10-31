@@ -47,6 +47,9 @@ public class PictureListModel {
 		Arrays.asList(directory.list()).forEach(f -> {
 			fileList.add(new Picture(directory.getPath() + "/"+ f));
 		});
+		if(fileList.isEmpty()){
+			throw new IllegalArgumentException("No Image found");
+		}
 	}
 
 	/**
