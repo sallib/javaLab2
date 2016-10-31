@@ -32,6 +32,11 @@ class InfosView extends JFrame implements ActionListener {
 	private JTextArea descEdit;
 	private Picture currentPicture;
 	private InterfaceInfoView iiv;
+	private JPanel empty;
+	private JLabel titleLabel;
+	private JLabel descLabel;
+	private JButton valid;
+	private JButton cancel;
 
 	/**
 	 * constructeur de la fenêtre infosView en attente d'être appelée. 
@@ -44,13 +49,40 @@ class InfosView extends JFrame implements ActionListener {
 		this.setTitle("Modifier Informations");
 		this.setSize(400, 300);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.gbt = new GridBagLayout();
 		this.gbc = new GridBagConstraints();
 		this.setContentPane(container);
+
+		empty = new JPanel();
+		titleLabel = new JLabel("Titre");
+		
+		descLabel = new JLabel("Description");
+		
+		valid = new JButton("Valider");
+		valid.setActionCommand("Valider");
+		valid.addActionListener(this);
+		cancel = new JButton("Annuler");
+		cancel.setActionCommand("Cancel");
+		cancel.addActionListener(this);
+		container.setLayout(this.gbt);
+
+		addComponent(titleLabel, 1, 2, 1, 1);
+		titleEdit = new JTextField(null, 20);
+		addComponent(empty, 3, 1, 3, 2);
+		addComponent(descLabel, 5, 2, 1, 1);
+		descEdit = new JTextArea(null, 3, 20);
+		addComponent(empty, 8, 3, 3, 2);
+		addComponent(valid, 12, 3, 1, 1);
+		addComponent(cancel, 12, 4, 1, 1);
+		addComponent(titleEdit, 1, 3, 2, 1);
+		addComponent(descEdit, 5, 3, 2, 2);
 		this.setVisible(false);
 	}
 
+	/**
+	 * defini la zone active de la fenetre
+	 */
 	@Override
 	public Insets getInsets() {
 		return new Insets(5, 5, 5, 5);
@@ -64,16 +96,15 @@ class InfosView extends JFrame implements ActionListener {
 			// Modification du titre et description de l'image courante
 			currentPicture.setTitle(titleEdit.getText());
 			currentPicture.setDescription(descEdit.getText());
+			System.out.println("validate running:"+titleEdit.getText() +" "+ descEdit.getText());
+			System.out.println("validater champs: "+ this.currentPicture.getTitle() +" "+ this.currentPicture.getDescription());
 			iiv.updateHeaderInfos();
-			// Quitter
-			close();
 		case "Cancel":
 			close();
 			break;
 		default:
 			break;
 		}
-
 	}
 	
 	/**
@@ -82,32 +113,13 @@ class InfosView extends JFrame implements ActionListener {
 	 void init(Picture currentPicture) {
 		Objects.requireNonNull(currentPicture);
 		this.currentPicture = currentPicture;
-		this.setVisible(true);
-
 		String title = currentPicture.getTitle();
 		String description = currentPicture.getDescription();
-
-		JPanel empty = new JPanel();
-		JLabel titleLabel = new JLabel("Titre");
-		titleEdit = new JTextField(title, 20);
-		JLabel descLabel = new JLabel("Description");
-		descEdit = new JTextArea(description, 3, 20);
-		JButton valid = new JButton("Valider");
-		valid.setActionCommand("Valider");
-		valid.addActionListener(this);
-		JButton cancel = new JButton("Annuler");
-		cancel.setActionCommand("Cancel");
-		cancel.addActionListener(this);
-		container.setLayout(this.gbt);
-
-		addComponent(titleLabel, 1, 2, 1, 1);
-		addComponent(titleEdit, 1, 3, 2, 1);
-		addComponent(empty, 3, 1, 3, 2);
-		addComponent(descLabel, 5, 2, 1, 1);
-		addComponent(descEdit, 5, 3, 2, 2);
-		addComponent(empty, 8, 3, 3, 2);
-		addComponent(valid, 12, 3, 1, 1);
-		addComponent(cancel, 12, 4, 1, 1);
+		
+		titleEdit.setText(title);
+		descEdit.setText(description);
+		
+		this.setVisible(true);
 	}
 
 	/**
@@ -128,8 +140,12 @@ class InfosView extends JFrame implements ActionListener {
 		container.add(c);
 	}
 
+	/**
+	 * Ferme la fenetre
+	 */
 	private void close() {
+		System.out.println("close infosview");
 		this.setVisible(false);
-		this.dispose();
+		//this.dispose();
 	}
 }
