@@ -17,6 +17,12 @@ import javax.swing.JTextField;
 
 import model.Picture;
 
+/**
+ * Vue de la fenetre de modification des attributs de l'image courante : 
+ * affiche et capte les actions de l'utilisateur.
+ * Transmet les interactions de modification des attributs a la classe Application
+ * via l'InterfaceInfoView.
+ */
 class InfosView extends JFrame implements ActionListener {
 
 	private JPanel container = new JPanel();
@@ -28,7 +34,7 @@ class InfosView extends JFrame implements ActionListener {
 	private InterfaceInfoView iiv;
 
 	/**
-	 * \brief constructeur de la fenêtre infosView en attente d'être appelée. 
+	 * constructeur de la fenêtre infosView en attente d'être appelée. 
 	 * Tant qu'elle n'est pas appelé par la méthode init(Picture p), currentPicture reste null.
 	 * Par défaut n'est pas visible.
 	 */
@@ -105,7 +111,7 @@ class InfosView extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * methode de gestion visuel des element de la liste.
+	 * methode de gestion visuelle des elements de la liste.
 	 * 
 	 * @param c
 	 * @param ligne

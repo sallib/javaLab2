@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
+/**
+ * Vue de la fenetre d'application : affiche la fenetre.
+ */
 class WindowView extends JFrame  {
 	private JPanel container = new JPanel();
 	

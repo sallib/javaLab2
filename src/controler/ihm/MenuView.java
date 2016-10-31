@@ -12,6 +12,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Vue du menu : affiche et capte les actions de l'utilisateur.
+ * Transmet les interactions d'ajout d'image et de fermeture d'application a la classe Application
+ * via l'InterfaceMenuView.
+ */
 class MenuView implements ActionListener {
 	private final JMenuBar menuBar;
 	private final JMenu file;
@@ -75,9 +80,6 @@ class MenuView implements ActionListener {
 			String newImg = chooser.getSelectedFile().getPath();
 			
 			System.out.println("You chose to open this file: " + newImg);
-			//TODO : Il faut ajouter le nouvel élément a la List de l'interface
-			// Et sélextionner l'item pour pouvoir afficher les informations titre / desc
-		//	displaySelectedItem(newImg);  -> fait tout planter car VC est null à ce moment la. s
 			imv.addPicture(newImg);
 		}
 	}
