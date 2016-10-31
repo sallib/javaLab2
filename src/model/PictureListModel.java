@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Modele pour la liste de Picture. defini les accees et modificateurs disponible de la liste.
+ * @author chezmoi
+ *
+ */
 public class PictureListModel {
 	private final ArrayList<Picture> fileList;
 
@@ -53,6 +58,10 @@ public class PictureListModel {
 		return this.fileList;
 	}
 
+	/**
+	 * Construit une liste des url uniquement pour une recherche plus rapide.
+	 * @return ArrayList<String> 
+	 */
 	public ArrayList<String> getAllPaths() {
 		ArrayList<String> allPaths = new ArrayList<>();
 		for (Picture p : fileList) {
@@ -61,6 +70,10 @@ public class PictureListModel {
 		return allPaths;
 	}
 
+	/**
+	 * Methode d'ajout d'une image a la liste.
+	 * @param path
+	 */
 	public void addPicture(String path) {
 		fileList.add(new Picture(path));
 	}

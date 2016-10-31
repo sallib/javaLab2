@@ -26,6 +26,11 @@ class MenuView implements ActionListener {
 	private final JMenuItem info_more;
 	private InterfaceMenuView imv;
 	
+	/**
+	 * Constructeur du menu.
+	 * @param imv Reference vers ViewerController pour communiquer via les commandes specifiees dans l'interface
+	 * InterfaceMenuView.
+	 */
 	MenuView(InterfaceMenuView imv) {
 		Objects.requireNonNull(imv);
 		this.imv = imv;
@@ -55,6 +60,10 @@ class MenuView implements ActionListener {
 
 	}
 
+	/**
+	 * defini les actionListeners sur les boutons du menu.
+	 * @return
+	 */
 	JMenuBar getMenu() {
 		info_more.addActionListener(this);
 		info_more.setActionCommand("info");
@@ -70,6 +79,9 @@ class MenuView implements ActionListener {
 		return menuBar;
 	}
 
+	/**
+	 * filtre les fichiers par extensions autorisees et envoie a application l'url de l'image a ajouter.
+	 */
 	private void chooseFile() {
 		JFileChooser chooser = new JFileChooser(new File("."));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG; JPEG; GIF; PNG", "jpeg", "jpg", "png",
@@ -78,8 +90,6 @@ class MenuView implements ActionListener {
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			String newImg = chooser.getSelectedFile().getPath();
-			
-			System.out.println("You chose to open this file: " + newImg);
 			imv.addPicture(newImg);
 		}
 	}

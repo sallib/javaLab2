@@ -42,6 +42,7 @@ class InfosView extends JFrame implements ActionListener {
 	 * constructeur de la fenêtre infosView en attente d'être appelée. 
 	 * Tant qu'elle n'est pas appelé par la méthode init(Picture p), currentPicture reste null.
 	 * Par défaut n'est pas visible.
+	 * @param InterfaceInfoView reference vers Application pour remonter les commandes donnees par l'utilisateur.
 	 */
 	InfosView(InterfaceInfoView iiv) {
 		this.iiv = iiv;
@@ -50,6 +51,7 @@ class InfosView extends JFrame implements ActionListener {
 		this.setSize(400, 300);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setAlwaysOnTop(true);
 		this.gbt = new GridBagLayout();
 		this.gbc = new GridBagConstraints();
 		this.setContentPane(container);

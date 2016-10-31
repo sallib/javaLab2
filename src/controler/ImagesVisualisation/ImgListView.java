@@ -16,7 +16,14 @@ import javax.swing.JPanel;
 
 import model.Picture;
 
-
+/**
+ * Vue pour la liste des images.
+ * Gere l'affichage et la capture des interactions avec l'utilisateur.
+ * Affiche la liste des images et permet leur affichage via le bouton d'affichage.
+ * Renvoie les commandes lancees par l'utilisateur au ViewerController pour repercuter sur
+ * toutes les vues l'action realisees.
+ *
+ */
 class ImgListView implements ActionListener {
 	private final GridBagLayout gbt;
 	private final GridBagConstraints gbc;
@@ -27,11 +34,9 @@ class ImgListView implements ActionListener {
 	private InterfaceILV iilv;
 
 	/**
-	 * Constructeur par defaut appelee par Window
-	 * 
-	 * @param model
-	 *            liste des images préalablement instanciee pour construire la
-	 *            vue initiale.
+	 *  Constructeur de la vue d'affichage de l'image courante et de ses informations.
+	 * @param InterfaceILV  donne la reference vers le ViewerController pour synchroniser les actions de l'utilisateur
+	 * pour toutes les vues.
 	 */
 	ImgListView(InterfaceILV iilv) {
 		Objects.requireNonNull(iilv);
@@ -54,17 +59,26 @@ class ImgListView implements ActionListener {
 		iilv.setCurrentPicture(z);
 	}
 
+	/**
+	 * Selectionne l'element de la liste precise par l'index en parametre.
+	 * @param index de l'element.
+	 */
 	void refresh(int index) {
 		list.select(index);
 	}
 	
+	/**
+	 * getter de la liste pour le controller
+	 * @return la liste des images sous forme d'url.
+	 */
 	JPanel getImgList() {
 		return content;
 	}
 
 	/**
-	 * Methode interne pour ajouter les paths de chaque image dans la liste
+	 * Methode d'initialisation pour ajouter les paths de chaque image dans la liste
 	 * texte affichee.
+	 * @param ArrayList<Picture> la liste des images a afficher sous forme de texte.
 	 */
 	void fillFileList(ArrayList<Picture> fileList) {
 		fileList.forEach(item -> {
@@ -74,11 +88,18 @@ class ImgListView implements ActionListener {
 		selectFirstItem();
 	}
 	
+	/**
+	 * methode d'ajout manuel d'image dans la liste.
+	 * @param img l'url de l'image.
+	 */
 	void addOneImgToList(String img){
 		String[] paths = img.split("/");
 		list.add(paths[paths.length-1]);
 	}
 
+	/**
+	 * Methode d'ajout d'un actionListener sur le bouton d'affichage.
+	 */
 	private void init(){
 		content.setBorder(BorderFactory.createEtchedBorder());
 		this.setImageList();

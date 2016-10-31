@@ -7,7 +7,9 @@ import model.Picture;
 import model.PictureListModel;
 
 /**
+ * Controler principal.
  * Instancie les vues des différents blocs et synchronise les interactions entre chaque vues grace aux interfaces.
+ * Redirige les commandes de modification de la liste des images vers ViewerControler.
  *
  */
 public class ApplicationController implements InterfaceInfoView,InterfaceMenuView {

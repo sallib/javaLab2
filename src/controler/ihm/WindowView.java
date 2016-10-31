@@ -4,13 +4,17 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 /**
- * Vue de la fenetre d'application : affiche la fenetre.
+ * Vue de la fenetre d'application : affiche la fenetre et positionne les différents blocs.
  */
 class WindowView extends JFrame  {
 	private JPanel container = new JPanel();
 	
+	/**
+	 * Constructeur de la classe. 
+	 */
 	private WindowView() {
 		this.setTitle("My awesome Canadian pictures");
 		this.setSize(800, 600);
@@ -23,15 +27,28 @@ class WindowView extends JFrame  {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Factory methode de la classe, construit l'objet WindowView et positionne les blocs passes en parametre.
+	 * @param imgList
+	 * @param imgView
+	 * @param menu
+	 * @return
+	 */
 	static WindowView create(JPanel imgList,JPanel imgView,JMenuBar menu){
 		WindowView w = new WindowView();
 		w.getContentPane().add(imgView, BorderLayout.CENTER);
 		w.getContentPane().add(imgList, BorderLayout.EAST);
 		w.getContentPane().add(menu, BorderLayout.NORTH);
+		w.getContentPane().setComponentZOrder(w.getContentPane().getComponent(2), 0); // ne marche pas. conflit entre swing et awt
+		w.getContentPane().setComponentZOrder(w.getContentPane().getComponent(1), 1);
+		w.getContentPane().setComponentZOrder(w.getContentPane().getComponent(0), 2);
 		w.setVisible(true);
 		return w;
 	}
 
+	/**
+	 * Ferme la fenetre principale.
+	 */
 	void close(){
 		this.setVisible(false);
 		this.dispose();

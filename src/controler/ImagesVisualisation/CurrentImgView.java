@@ -19,6 +19,15 @@ import javax.swing.JPanel;
 
 import model.Picture;
 
+/**
+ * Vue de l'image courante.
+ * Gere l'affichage et la capture des interactions avec l'utilisateur.
+ * Affiche l'image courante et ses informations. Permet de naviguer vers l'image suivante/ precedente.
+ * Permet d'editer les informations de l'image courante.
+ * Renvoie les commandes lancees par l'utilisateur au ViewerController pour repercuter sur
+ * toutes les vues l'action realisees.
+ *
+ */
 class CurrentImgView implements ActionListener {
 
 	private JLabel pict;
@@ -31,8 +40,9 @@ class CurrentImgView implements ActionListener {
 	private InterfaceCIV iciv;
 
 	/**
-	 * Class constructor
-	 * @param iciv ViewerController reference for specific methods calls.
+	 * Constructeur de la vue d'affichage de l'image courante et de ses informations.
+	 * @param InterfaceCIV  donne la reference vers le ViewerController pour synchroniser les actions de l'utilisateur
+	 * pour toutes les vues.
 	 */
 	CurrentImgView(InterfaceCIV iciv) {
 		Objects.requireNonNull(iciv);
@@ -47,11 +57,9 @@ class CurrentImgView implements ActionListener {
 		switch (actionCmd) {
 		case "Previous":
 				iciv.setPreviousPicture();
-				nextButt.setEnabled(true); // Réactive le bouton next TODO à supprimer ?
 			break;
 		case "Next":
 			iciv.setNextPicture();
-				previousButt.setEnabled(true); // Réactive le bouton previous TODO à supprimer ?
 			break;
 		case "Modify":
 			iciv.openInfoView();
@@ -63,7 +71,6 @@ class CurrentImgView implements ActionListener {
 	/**
 	 * Methode d'affichage de l'image active centrale
 	 * @param Picture current image to print.
-	 * @return
 	 */
 	void setDefaultImageView(Picture currentImg) {
 		content.setLayout(new BorderLayout());
@@ -74,7 +81,7 @@ class CurrentImgView implements ActionListener {
 
 	/**
 	 * Getter for this JPanel.
-	 * @return
+	 * @return JPanel contenant la vue.
 	 */
 	JPanel getImageView() {
 		return content;
@@ -82,8 +89,8 @@ class CurrentImgView implements ActionListener {
 	
 	/**
 	 * Mise à jour des informations sur l'image affichee.
-	 * @param String image's title updated.
-	 * @param String image's description updated.
+	 * @param String titre de l'image mis a jour
+	 * @param String description de l'image mis a jour
 	 */
 	void setTextInfo(String title, String descr){
 		this.title.setText(title);
@@ -92,9 +99,9 @@ class CurrentImgView implements ActionListener {
 
 	/**
 	 * Methode pour actualiser la vue de l'image. Actualise aussi la disponibilité des boutons de navigation.
-	 * @param String	path of the current picture
-	 * @param int 		index of the current picture in the list.
-	 * @param int 		size of the picture's list.
+	 * @param String	chemin de l'image courante
+	 * @param int 		index de l'image courante dans la liste
+	 * @param int 		taille de la liste d'images.
 	 */
 	void refresh(String currentPicture,int index,int size) {
 		ImageIcon img = new ImageIcon(currentPicture);
@@ -114,7 +121,7 @@ class CurrentImgView implements ActionListener {
 
 	/**
 	 * initialisateur de l'image centrale.
-	 * @param Picture current picture to print.
+	 * @param Picture Image courante a imprimer
 	 * @return
 	 */
 	private JPanel getCenter(Picture currentImg) {
@@ -130,7 +137,7 @@ class CurrentImgView implements ActionListener {
 	/**
 	 * initialisateur des boutons de navigation dans la liste.
 	 * 
-	 * @return
+	 * @return JPanel boutons next/previous.
 	 */
 	private JPanel getFootPanel() {
 		JPanel foot = new JPanel();
@@ -156,9 +163,9 @@ class CurrentImgView implements ActionListener {
 	 * initialisateur du bandeau de visualisation des infos image + bouton
 	 * modification
 	 * 
-	 * @return 
+	 * @return  JPanel infos de l'image
 	 */
-	private JPanel getHeadPanel() { // TODO listener à implanter
+	private JPanel getHeadPanel() {
 		JPanel head = new JPanel(new GridLayout(3, 3));
 		JPanel headBorderLayout = new JPanel(new BorderLayout());
 		JPanel east = new JPanel(new BorderLayout());
