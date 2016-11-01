@@ -12,6 +12,6 @@ public class Main {
 		// Instanciation de notre modèle
 		PictureListModel model = PictureListModel.createViewer(directory);
 		// Création de notre fenêtre avec le contrôleur en paramètre
-		ApplicationController app = new ApplicationController(model);
+		 new ApplicationController(model);
 	}
 }

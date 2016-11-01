@@ -1,15 +1,15 @@
 package controler.ihm;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 
 /**
  * Vue de la fenetre d'application : affiche la fenetre et positionne les différents blocs.
  */
-class WindowView extends JFrame  {
+public class WindowView extends JFrame  {
 	private JPanel container = new JPanel();
 	
 	/**

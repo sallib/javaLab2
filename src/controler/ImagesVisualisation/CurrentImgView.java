@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Label;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import model.Picture;
 
@@ -35,8 +35,8 @@ class CurrentImgView implements ActionListener {
 	private JPanel imgPanel;
 	private JButton previousButt;
 	private JButton nextButt;
-	private Label title;
-	private Label desc;
+	private JLabel title;
+	private JLabel desc;
 	private InterfaceCIV iciv;
 
 	/**
@@ -146,10 +146,10 @@ class CurrentImgView implements ActionListener {
 		foot.setLayout(gridLayout);
 
 		previousButt = new JButton("Précédent");
-		previousButt.setIcon(new ImageIcon("icon/back.png"));
+		previousButt.setIcon(new ImageIcon("icon/back.png")); //Icon du bouton 
 		previousButt.setActionCommand("Previous");
 		nextButt = new JButton("Suivant");
-		nextButt.setIcon(new ImageIcon("icon/next.png"));
+		nextButt.setIcon(new ImageIcon("icon/next.png")); //Icon du bouton
 		nextButt.setActionCommand("Next");
 		previousButt.addActionListener(this);
 		previousButt.setEnabled(false);
@@ -170,10 +170,12 @@ class CurrentImgView implements ActionListener {
 		JPanel headBorderLayout = new JPanel(new BorderLayout());
 		JPanel east = new JPanel(new BorderLayout());
 		headBorderLayout.setBorder(BorderFactory.createEtchedBorder());
-		Label titleLabel = new Label("Titre : ");
-		Label descLabel = new Label("Description : ");
-		title = new Label();
-		desc = new Label();
+		JLabel titleLabel = new JLabel("Titre : ");
+		JLabel descLabel = new JLabel("Description : ");
+		title = new JLabel();
+		desc = new JLabel();
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		descLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		JButton modifyButt = new JButton("Modifier");
 		modifyButt.setActionCommand("Modify");
 		modifyButt.addActionListener(this);
