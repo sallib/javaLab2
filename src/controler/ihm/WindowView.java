@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 /**
  * Vue de la fenetre d'application : affiche la fenetre et positionne les différents blocs.
  */
-public class WindowView extends JFrame  {
+class WindowView extends JFrame  {
 	private JPanel container = new JPanel();
 	
 	/**
@@ -39,9 +39,6 @@ public class WindowView extends JFrame  {
 		w.getContentPane().add(imgView, BorderLayout.CENTER);
 		w.getContentPane().add(imgList, BorderLayout.EAST);
 		w.getContentPane().add(menu, BorderLayout.NORTH);
-		w.getContentPane().setComponentZOrder(w.getContentPane().getComponent(2), 0); // ne marche pas. conflit entre swing et awt
-		w.getContentPane().setComponentZOrder(w.getContentPane().getComponent(1), 1);
-		w.getContentPane().setComponentZOrder(w.getContentPane().getComponent(0), 2);
 		w.setVisible(true);
 		return w;
 	}
