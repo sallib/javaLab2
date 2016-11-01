@@ -98,8 +98,6 @@ class InfosView extends JFrame implements ActionListener {
 			// Modification du titre et description de l'image courante
 			currentPicture.setTitle(titleEdit.getText());
 			currentPicture.setDescription(descEdit.getText());
-			System.out.println("validate running:"+titleEdit.getText() +" "+ descEdit.getText());
-			System.out.println("validater champs: "+ this.currentPicture.getTitle() +" "+ this.currentPicture.getDescription());
 			iiv.updateHeaderInfos();
 		case "Cancel":
 			close();
@@ -146,7 +144,6 @@ class InfosView extends JFrame implements ActionListener {
 	 * Ferme la fenetre
 	 */
 	private void close() {
-		System.out.println("close infosview");
 		this.setVisible(false);
 		this.dispose();
 	}

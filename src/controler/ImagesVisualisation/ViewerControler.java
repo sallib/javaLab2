@@ -21,7 +21,7 @@ public class ViewerControler implements InterfaceCIV,InterfaceILV {
 	private final ImgListView ILV;
 	private final PictureListModel model;
 	private String selectedItem;
-	private ArrayList<String> fileListPath;// TODO voir si possibilité de supprimer
+	private ArrayList<String> fileListPath;
 
 	/**
 	 * Constructeur du controler.
@@ -135,7 +135,7 @@ public class ViewerControler implements InterfaceCIV,InterfaceILV {
 	 * @return l'image courante.
 	 */
 	private Picture getCurrentPict(){
-		return getModel().getFileList().get(getCurrentIndex()); // TODO refactor possible en stockant un champs de classe Picture current
+		return getModel().getFileList().get(getCurrentIndex()); 
 	}
 
 	/**
